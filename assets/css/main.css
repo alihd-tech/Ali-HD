@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans;
+  }
+
+  ::selection {
+    @apply bg-accent text-accent-content;
+  }
+}
+
+@layer components {
+  .section-container {
+    @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent;
+  }
+
+  .glass {
+    background-color: color-mix(in srgb, var(--fallback-b2, oklch(var(--b2))) 60%, transparent);
+    backdrop-filter: blur(24px);
+    border: 1px solid color-mix(in srgb, var(--fallback-b3, oklch(var(--b3))) 50%, transparent);
+  }
+
+  .card-hover {
+    @apply transition-all duration-300;
+  }
+  .card-hover:hover {
+    @apply -translate-y-1 shadow-xl;
+  }
+
+  .font-ace {
+    font-family: 'Bruno Ace SC', monospace;
+  }
+
+  .font-quicksand {
+    font-family: 'Quicksand', sans-serif;
+  }
+}
