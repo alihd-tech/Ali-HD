@@ -33,10 +33,10 @@ export default defineNuxtConfig({
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' },
         { name: 'theme-color', content: '#FFAC00' },
-        {  },
         { name: 'color-scheme', content: 'dark light' },
         { name: 'application-name', content: 'Ali HD' },
         { name: 'apple-mobile-web-app-title', content: 'Ali HD' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
         { name: 'mobile-web-app-capable', content: 'yes' },
         {
           name: 'description',
@@ -54,7 +54,6 @@ export default defineNuxtConfig({
         { name: 'copyright', content: 'Ali Heydari' },
         { name: 'robots', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
         { name: 'googlebot', content: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
-        { name: 'referrer', content: 'strict-origin-when-cross-origin' },
         { name: 'format-detection', content: 'telephone=no' },
         { property: 'og:title', content: 'Ali HD — Full-Stack Developer Portfolio' },
         {
@@ -83,10 +82,12 @@ export default defineNuxtConfig({
         { name: 'twitter:image:alt', content: 'Ali HD — Full Stack Engineer & Web Architect portfolio' },
       ],
       link: [
-        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'icon', type: 'image/png', sizes: '96x96', href: '/favicon-96x96.png' },
         { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
         { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
         { rel: 'manifest', href: '/manifest.json' },
       ],
       script: [
