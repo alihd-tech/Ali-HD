@@ -66,8 +66,13 @@
             <aside
               class="flex flex-col gap-6 border-b border-base-300/30 p-4 sm:p-5 lg:col-span-4 lg:border-b-0 lg:border-r lg:p-6 xl:p-8"
             >
-              <NuxtLink to="/" class="site-footer-profile group">
-                <div class="relative shrink-0">
+              <div class="site-footer-profile-block space-y-2">
+                <NuxtLink
+                  to="/"
+                  class="site-footer-profile group"
+                  title="Ali HD — home, full-stack engineer portfolio"
+                >
+                  <div class="relative shrink-0">
                   <div
                     class="absolute -inset-0.5 rounded-2xl bg-gradient-to-br from-primary/40 to-secondary/25 opacity-0 blur-sm transition-opacity duration-300 group-hover:opacity-100"
                     aria-hidden="true"
@@ -77,10 +82,12 @@
                   >
                     <img
                       src="/alihd.jpg"
-                      alt=""
+                      :alt="profileImageAlt"
                       class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       width="112"
                       height="112"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 </div>
@@ -91,23 +98,33 @@
                   <p class="text-sm text-base-content/60">
                     Full-stack engineer &amp; web architect
                   </p>
-                  <p class="truncate text-xs text-base-content/45">
-                    {{ contactEmail }}
-                  </p>
                 </div>
                 <Icon
                   name="ph:caret-right-bold"
                   class="h-4 w-4 shrink-0 text-base-content/20 transition-all group-hover:translate-x-0.5 group-hover:text-primary"
                   aria-hidden="true"
                 />
-              </NuxtLink>
+                </NuxtLink>
+                <a
+                  :href="mailtoHref"
+                  class="site-footer-email block truncate ps-[calc(6rem+1rem)] text-xs text-base-content/45 transition-colors hover:text-primary sm:ps-[calc(7rem+1rem)]"
+                  :title="mailtoTitle"
+                  :aria-label="mailtoTitle"
+                >
+                  {{ contactEmail }}
+                </a>
+              </div>
 
               <nav aria-label="Site navigation" class="space-y-5">
                 <div>
                   <p class="site-footer-nav-label">Explore</p>
                   <ul class="mt-3 grid grid-cols-2 gap-1.5 sm:grid-cols-1">
                     <li v-for="link in footerNav" :key="link.href">
-                      <NuxtLink :to="link.href" class="site-footer-nav-link">
+                      <NuxtLink
+                        :to="link.href"
+                        class="site-footer-nav-link"
+                        :title="link.title"
+                      >
                         <Icon :name="link.icon" class="h-4 w-4 shrink-0 opacity-70" aria-hidden="true" />
                         {{ link.label }}
                       </NuxtLink>
@@ -119,7 +136,11 @@
                   <p class="site-footer-nav-label">On this page</p>
                   <ul class="mt-2 flex flex-wrap gap-2">
                     <li v-for="link in pageAnchors" :key="link.href">
-                      <a :href="link.href" class="site-footer-chip site-footer-chip--muted">
+                      <a
+                        :href="link.href"
+                        class="site-footer-chip site-footer-chip--muted"
+                        :title="link.title"
+                      >
                         {{ link.label }}
                       </a>
                     </li>
@@ -140,7 +161,8 @@
                     target="_blank"
                     rel="noopener noreferrer"
                     class="site-footer-link-card group"
-                    :aria-label="`${social.name}: ${social.subtitle} (opens in new tab)`"
+                    :aria-label="socialLinkLabel(social)"
+                    :title="socialLinkLabel(social)"
                   >
                     <span class="site-footer-link-icon" aria-hidden="true">
                       <Icon :name="social.icon" class="h-5 w-5" />
@@ -167,12 +189,23 @@
           class="container mx-auto flex max-w-6xl flex-col items-center gap-5 px-4 py-5 sm:px-6 lg:flex-row lg:justify-between lg:gap-6 lg:px-8 lg:py-6"
         >
           <p class="text-center text-xs text-base-content/50 sm:text-left sm:text-sm">
-            <NuxtLink to="/" class="site-footer-inline-link">Ali Heydari</NuxtLink>. © {{ currentYear }}
+            <NuxtLink
+              to="/"
+              class="site-footer-inline-link"
+              title="Ali Heydari — home"
+            >
+              Ali Heydari
+            </NuxtLink>. © {{ currentYear }}
             Crafted with care.
           </p>
  
 
-          <a href="#top" class="site-footer-back-top">
+          <a
+            href="#top"
+            class="site-footer-back-top"
+            title="Back to top of page"
+            aria-label="Back to top of page"
+          >
             <Icon name="ph:arrow-up-bold" class="h-4 w-4" aria-hidden="true" />
             Back to top
           </a>
@@ -183,22 +216,47 @@
 </template>
 
 <script setup lang="ts">
+import type { NavItem, SocialLink } from '~/types'
+
+interface FooterNavLink extends NavItem {
+  title: string
+}
+
+interface PageAnchorLink {
+  label: string
+  href: string
+  title: string
+}
+
 const currentYear = new Date().getFullYear()
 const route = useRoute()
- 
-const pageAnchors = [ 
-  { label: 'Approach', href: '#stack' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Contact', href: '#contact' },
-] as const
- 
+
+const profileImageAlt = 'Ali Heydari — full-stack engineer and web architect portrait'
+
+const footerNav: FooterNavLink[] = [
+  { label: 'Home', href: '/', icon: 'ph:house-bold', title: 'Ali HD — home' },
+  { label: 'About', href: '/about', icon: 'ph:user-bold', title: 'About Ali Heydari' },
+  { label: 'Projects', href: '/projects', icon: 'ph:folder-bold', title: 'Featured projects portfolio' },
+]
+
+const pageAnchors: PageAnchorLink[] = [
+  { label: 'Approach', href: '#stack', title: 'Jump to approach and stack section' },
+  { label: 'Projects', href: '#projects', title: 'Jump to featured projects section' },
+  { label: 'Contact', href: '#contact', title: 'Jump to contact section' },
+]
 
 const showPageAnchors = computed(() => route.path === '/')
 
 const { public: publicConfig } = useRuntimeConfig()
-const socialLinks = publicConfig.socialLinks
-const contactEmail = publicConfig.contactEmail
- 
+const socialLinks = publicConfig.socialLinks as SocialLink[]
+const contactEmail = publicConfig.contactEmail as string
+
+const mailtoHref = computed(() => `mailto:${contactEmail}`)
+const mailtoTitle = computed(() => `Email Ali HD at ${contactEmail}`)
+
+function socialLinkLabel(social: SocialLink) {
+  return `${social.name}: ${social.subtitle} (opens in new tab)`
+}
 </script>
 
 <style scoped>  
@@ -284,6 +342,16 @@ const contactEmail = publicConfig.contactEmail
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: color-mix(in srgb, var(--fallback-bc, oklch(var(--bc))) 42%, transparent);
+}
+
+.site-footer-profile-block {
+  margin: -0.25rem 0;
+}
+
+.site-footer-email:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-primary) 50%, transparent);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
 }
 
 .site-footer-profile {
