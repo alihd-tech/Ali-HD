@@ -3,7 +3,7 @@
   "short_name": "ALIHD",
   "description": "Ali Heydari's developer portfolio",
   "start_url": "/",
-  "display": "minimal-ui",
+  "display": "fullscreen",
   "background_color": "#1a1b1f",
   "theme_color": "#FFAC00",
   "orientation": "portrait",
