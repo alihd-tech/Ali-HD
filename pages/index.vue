@@ -21,9 +21,6 @@
                 <p class="text-[11px] font-semibold uppercase tracking-[0.24em] text-primary/90">
                   {{ heroCopy.pillLabel }}
                 </p>
-                <p id="hero-eyebrow" class="text-sm font-medium text-base-content/70">
-                  {{ heroCopy.eyebrow }}
-                </p>
               </header>
 
               <div class="space-y-5">
@@ -77,19 +74,13 @@
                 <div
                   v-else
                   key="customizer"
-                  class="hero-customizer-card relative max-w-sm mx-auto overflow-hidden rounded-2xl border border-base-300/60 bg-base-100 p-5 shadow-xl sm:p-6"
+                  class="hero-customizer-card relative max-w-sm mx-auto overflow-hidden rounded-2xl border-2 border-base-300 bg-base-100 p-5 shadow-xl sm:p-6"
                 >
                   <div
                     class="pointer-events-none absolute -inset-px bg-gradient-to-br from-primary/10 via-transparent to-secondary/5 opacity-70"
                     aria-hidden="true"
-                  />
-                  <header class="relative mb-5 text-center">
-                    <div class="mx-auto mb-2 flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-primary">
-                      <Icon name="fluent:settings-24-filled" class="h-5 w-5" />
-                    </div>
-                    <h2 class="text-sm font-semibold tracking-wide text-base-content">Customizer</h2>
-                    <p class="mt-0.5 text-xs text-base-content/50">Tune complexity, nerd mode, and accent</p>
-                  </header>
+                  /> 
+      
                   <UiCustomizerPanel class="relative" />
                 </div>
               </Transition>
@@ -103,8 +94,13 @@
         id="stack"
         :key="`principles-${activeLevel}-${personalityKey}`"
         aria-labelledby="stack-heading"
-        class="stack-section relative scroll-mt-20 border-b border-base-300/25 py-12 sm:py-14 md:py-16 lg:py-20"
+        class="stack-section relative scroll-mt-20 overflow-hidden border-b border-base-300/25 py-12 sm:py-14 md:py-16 lg:py-20"
       >
+        <div
+          class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_55%_45%_at_0%_50%,color-mix(in_srgb,var(--color-primary)_6%,transparent),transparent),radial-gradient(ellipse_50%_40%_at_100%_80%,color-mix(in_srgb,var(--color-secondary)_5%,transparent),transparent)]"
+          aria-hidden="true"
+        />
+
         <div class="container relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <header class="index-section-header mb-10 md:mb-12 lg:mb-14">
             <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
@@ -121,41 +117,92 @@
                   {{ sectionHeader.intro }}
                 </p>
               </div>
-              <p class="shrink-0 text-sm text-base-content/55 lg:text-right">
-                <span class="font-medium text-base-content/80">{{ complexityLabel }}</span>
-                <span class="mx-2 text-base-content/30" aria-hidden="true">&middot;</span>
-                <span>Adapts with complexity settings</span>
-              </p>
+              <div
+                class="flex shrink-0 items-center gap-3 rounded-full border border-base-300/35 bg-base-100/50 px-4 py-2 text-sm backdrop-blur-sm lg:self-end"
+                role="status"
+              >
+                <span
+                  class="relative flex h-2 w-2"
+                  aria-hidden="true"
+                >
+                  <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/40 opacity-75" />
+                  <span class="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+                </span>
+                <span class="text-base-content/55">
+                  <span class="font-medium text-base-content/85">{{ complexityLabel }}</span>
+                  <span class="mx-1.5 text-base-content/25" aria-hidden="true">&middot;</span>
+                  Live depth
+                </span>
+              </div>
             </div>
           </header>
 
-          <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+          <div
+            class="stack-bento grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5"
+            role="list"
+          >
             <article
-              v-for="story in stackStories"
+              v-for="(story, index) in stackStories"
               :key="story.id"
-              class="index-card group flex flex-col rounded-2xl border border-base-300/40 bg-base-100/40 p-6 transition-colors duration-300 hover:border-base-300/70 hover:bg-base-100/60"
-              :class="stackCardAccent(story.accent)"
+              role="listitem"
+              class="stack-card group relative flex min-h-[13.5rem] flex-col overflow-hidden rounded-2xl border border-base-300/35 bg-base-100/35 p-5 sm:min-h-[14.5rem] sm:p-6"
+              :class="stackCardClass(story.accent)"
             >
-              <div class="mb-4" aria-hidden="true">
-                <span
-                  class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-base-300/50 bg-base-200/50"
-                  :class="stackIconClass(story.accent)"
-                >
-                  <Icon :name="story.icon || 'fluent:layer-24-filled'" class="h-[18px] w-[18px]" />
-                </span>
-              </div>
-              <h3 class="mb-2 font-quicksand text-lg font-bold leading-snug text-base-content">
-                {{ story.title }}
-              </h3>
-              <p class="flex-1 text-sm leading-relaxed text-base-content/75">
-                {{ story.body }}
-              </p>
-              <p
-                v-if="story.tags?.length"
-                class="mt-4 border-t border-base-300/30 pt-4 text-xs leading-relaxed text-base-content/55"
+              <span
+                class="stack-card-index pointer-events-none absolute -end-1 -top-3 select-none font-ace text-[4.5rem] font-bold leading-none tracking-tighter sm:text-[5.25rem]"
+                :class="stackIndexClass(story.accent)"
+                aria-hidden="true"
               >
-                {{ story.tags.join(' \u00B7 ') }}
-              </p>
+                {{ stackIndexLabel(index) }}
+              </span>
+
+              <div
+                class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                :class="stackGlowClass(story.accent)"
+                aria-hidden="true"
+              />
+
+              <div class="relative flex items-start justify-between gap-3">
+                <div
+                  class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border bg-gradient-to-br shadow-sm transition-transform duration-500 group-hover:scale-105"
+                  :class="stackIconWrapClass(story.accent)"
+                  aria-hidden="true"
+                >
+                  <Icon :name="story.icon || 'fluent:layer-24-filled'" class="h-5 w-5" />
+                </div> 
+              </div>
+
+              <div class="relative mt-5 flex flex-1 flex-col">
+                <h3 class="font-quicksand text-lg font-bold leading-snug text-base-content sm:text-xl">
+                  {{ story.title }}
+                </h3>
+                <p class="mt-2 flex-1 text-sm leading-relaxed text-base-content/72 sm:text-[0.9375rem]">
+                  {{ story.body }}
+                </p>
+
+                <ul
+                  v-if="story.tags?.length"
+                  class="mt-4 flex flex-wrap gap-1.5"
+                  :aria-label="`Topics for ${story.title}`"
+                >
+                  <li
+                    v-for="tag in story.tags"
+                    :key="tag"
+                  >
+                    <span
+                      class="inline-block rounded-full border px-2.5 py-0.5 text-[10px] font-medium leading-tight transition-colors duration-300"
+                      :class="stackTagClass(story.accent)"
+                    >
+                      {{ tag }}
+                    </span>
+                  </li>
+                </ul>
+              </div>
+
+              <div
+                class="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-base-300/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                aria-hidden="true"
+              />
             </article>
           </div>
         </div>
@@ -435,7 +482,7 @@ function projectYearDatetime(year: string) {
 }
 
 const ACCENT_BORDER: Record<string, string> = {
-  primary: 'border-l-primary/60 hover:border-l-primary',
+  primary: 'border-primary/60 hover:border-primary',
   secondary: 'border-l-secondary/60 hover:border-l-secondary',
   info: 'border-l-info/60 hover:border-l-info',
   success: 'border-l-success/60 hover:border-l-success',
@@ -448,12 +495,63 @@ const ACCENT_ICON: Record<string, string> = {
   success: 'text-success',
 }
 
-function stackCardAccent(accent = 'primary') {
-  return `border-l-[3px] ${ACCENT_BORDER[accent] ?? ACCENT_BORDER.primary}`
+const STACK_CARD: Record<string, string> = {
+  primary: 'hover:border-primary/35 hover:shadow-lg hover:shadow-primary/[0.08]',
+  secondary: 'hover:border-secondary/35 hover:shadow-lg hover:shadow-secondary/[0.08]',
+  info: 'hover:border-info/35 hover:shadow-lg hover:shadow-info/[0.08]',
+  success: 'hover:border-success/35 hover:shadow-lg hover:shadow-success/[0.08]',
 }
 
-function stackIconClass(accent = 'primary') {
-  return ACCENT_ICON[accent] ?? ACCENT_ICON.primary
+const STACK_GLOW: Record<string, string> = {
+  primary: 'bg-gradient-to-br from-primary/10 via-transparent to-transparent',
+  secondary: 'bg-gradient-to-br from-secondary/10 via-transparent to-transparent',
+  info: 'bg-gradient-to-br from-info/10 via-transparent to-transparent',
+  success: 'bg-gradient-to-br from-success/10 via-transparent to-transparent',
+}
+
+const STACK_INDEX: Record<string, string> = {
+  primary: 'text-primary/[0.07]',
+  secondary: 'text-secondary/[0.07]',
+  info: 'text-info/[0.07]',
+  success: 'text-success/[0.07]',
+}
+
+const STACK_ICON_WRAP: Record<string, string> = {
+  primary: 'border-primary/25 from-primary/20 to-primary/5 text-primary',
+  secondary: 'border-secondary/25 from-secondary/20 to-secondary/5 text-secondary',
+  info: 'border-info/25 from-info/20 to-info/5 text-info',
+  success: 'border-success/25 from-success/20 to-success/5 text-success',
+}
+
+const STACK_TAG: Record<string, string> = {
+  primary: 'border-primary/20 bg-primary/10 text-primary group-hover:border-primary/30 group-hover:bg-primary/12',
+  secondary: 'border-secondary/20 bg-secondary/10 text-secondary group-hover:border-secondary/30 group-hover:bg-secondary/12',
+  info: 'border-info/20 bg-info/10 text-info group-hover:border-info/30 group-hover:bg-info/12',
+  success: 'border-success/20 bg-success/10 text-success group-hover:border-success/30 group-hover:bg-success/12',
+}
+
+function stackIndexLabel(index: number) {
+  return String(index + 1).padStart(2, '0')
+}
+
+function stackCardClass(accent = 'primary') {
+  return STACK_CARD[accent] ?? STACK_CARD.primary
+}
+
+function stackGlowClass(accent = 'primary') {
+  return STACK_GLOW[accent] ?? STACK_GLOW.primary
+}
+
+function stackIndexClass(accent = 'primary') {
+  return STACK_INDEX[accent] ?? STACK_INDEX.primary
+}
+
+function stackIconWrapClass(accent = 'primary') {
+  return STACK_ICON_WRAP[accent] ?? STACK_ICON_WRAP.primary
+}
+
+function stackTagClass(accent = 'primary') {
+  return STACK_TAG[accent] ?? STACK_TAG.primary
 }
 
 function projectCardAccent(accent = 'primary') {
@@ -494,7 +592,7 @@ const projects = [
     tags: ['Rust', 'Tauri', 'Nuxt', 'FastAPI', 'TypeScript', 'PWA'],
     banner: '/images/projects/solanam.jpg',
     bannerAlt: 'Solanam web based design software — banner',
-    logo: '/favicon.ico',
+    logo: '/images/projects/solanam.png',
     logoAlt: 'Solanam logo',
     href: 'https://solanam.com',
     accent: 'primary',
@@ -515,7 +613,7 @@ const projects = [
     tags: ['Nuxt', 'Next', 'Laravel', 'APIs', 'Multi-Tenant'],
     banner: '/images/projects/esimtrip.jpg',
     bannerAlt: 'Esimtrip eSIM travel platform — banner',
-    logo: '/favicon.ico',
+    logo: '/images/projects/esim-logo.png',
     logoAlt: 'Esimtrip logo',
     href: 'https://esimtrip.com',
     accent: 'secondary',
@@ -559,7 +657,24 @@ const projects = [
   );
 }
 
-.index-card,
+.stack-card {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition:
+    border-color 0.35s ease,
+    box-shadow 0.35s ease,
+    background-color 0.35s ease,
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stack-card:hover {
+  transform: translateY(-2px);
+}
+
+.stack-card-index {
+  font-variant-numeric: tabular-nums;
+}
+
 .index-project-card {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -599,6 +714,12 @@ const projects = [
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .stack-card,
+  .stack-card:hover {
+    transform: none;
+    transition: none;
+  }
+
   .index-project-thumb {
     transition: none;
   }

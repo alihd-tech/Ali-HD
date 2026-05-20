@@ -32,27 +32,6 @@
       </div>
     </div>
 
-    <!-- Nerd Toggle -->
-    <div class="flex items-center justify-between rounded-xl border border-base-300/35 bg-base-200/25 px-4 py-3">
-      <div>
-        <p class="text-sm font-semibold text-base-content">Nerd mode</p>
-        <p class="text-[11px] text-base-content/50">Show technical details and jargon</p>
-      </div>
-      <button
-        type="button"
-        role="switch"
-        :aria-checked="store.nerd"
-        class="relative h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
-        :class="store.nerd ? 'bg-primary' : 'bg-base-300'"
-        @click="store.toggleNerd"
-      >
-        <span
-          class="pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow-lg ring-0 transition-transform duration-200 ease-in-out"
-          :class="store.nerd ? 'translate-x-5' : 'translate-x-0'"
-        />
-      </button>
-    </div>
-
     <!-- Color Accent Picker -->
     <div>
       <label class="text-[11px] font-semibold uppercase tracking-[0.18em] text-base-content/60 mb-3 block">

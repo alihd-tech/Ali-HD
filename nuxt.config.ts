@@ -4,12 +4,12 @@ export default defineNuxtConfig({
     enabled: true,
   },
 
-  modules: ['@nuxtjs/tailwindcss', '@nuxt/icon', '@vueuse/nuxt', '@pinia/nuxt', '@nuxtjs/google-fonts', '@nuxt/content'],
+  modules: ['@nuxtjs/tailwindcss', '@nuxt/icon', '@pinia/nuxt', '@nuxtjs/google-fonts', '@nuxt/content'],
 
   icon: {
     class: 'icon',
     mode: 'css',
-    collections: ['fluent', 'heroicons', 'ph', 'catppuccin'],
+    collections: ['fluent','ph', 'catppuccin'],
     cssLayer: 'base'
   },
 
@@ -78,7 +78,7 @@ export default defineNuxtConfig({
           content:
             'Full-stack portfolio of Ali HD — Product-focused Engineering for the modern web, building fast, scalable interfaces and platforms designed to stay responsive as usage and complexity grow.',
         },
-        { name: 'twitter:image', content: 'https://alihd.ir/og-image.jpg' },
+        { name: 'twitter:image', content: 'https://alihd.ir/twitter.jpg' },
         { name: 'twitter:image:alt', content: 'Ali HD — Full Stack Engineer & Web Architect portfolio' },
       ],
       link: [
@@ -137,15 +137,6 @@ export default defineNuxtConfig({
     prefetch: true,
     inject: true,
     download: true
-  },
-
-  nitro: {
-    devProxy: {
-      '/api': {
-        target: 'https://alihd.ir',
-        changeOrigin: true,
-      },
-    },
   },
 
   runtimeConfig: {

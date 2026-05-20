@@ -1,5 +1,5 @@
 /**
- * Principles stack — six cards whose copy scales with site complexity (0–2).
+ * Principles stack — four cards whose copy scales with site complexity (0–2).
  * Level 0: one-line summaries. Level 1: what + how. Level 2: concrete stack & practices.
  */
 
@@ -12,7 +12,7 @@ const STACK_STORIES = [
   },
   {
     id: 'architecture',
-    icon: 'fluent:building-cube-24-filled',
+    icon: 'fluent:building-lighthouse-24-filled',
     accent: 'secondary',
     title: 'Architecture',
   },
@@ -28,18 +28,6 @@ const STACK_STORIES = [
     accent: 'success',
     title: 'Full-Stack',
   },
-  {
-    id: 'reliability',
-    icon: 'fluent:shield-checkmark-24-filled',
-    accent: 'primary',
-    title: 'Reliability',
-  },
-  {
-    id: 'craft',
-    icon: 'fluent:handshake-24-filled',
-    accent: 'secondary',
-    title: 'Craft',
-  },
 ] as const
 
 type StoryId = (typeof STACK_STORIES)[number]['id']
@@ -48,7 +36,6 @@ type StoryCopy = { body: string; tags: string[] }
 
 /** Card body + optional tag line per story, keyed by complexity tier. */
 const STACK_COPY: Record<0 | 1 | 2, Record<StoryId, StoryCopy>> = {
-  // Simple — headline only
   0: {
     performance: {
       body: 'Stay fast under real traffic, not just in benchmarks.',
@@ -66,16 +53,7 @@ const STACK_COPY: Record<0 | 1 | 2, Record<StoryId, StoryCopy>> = {
       body: 'Own the path from database schema to polished UI.',
       tags: [],
     },
-    reliability: {
-      body: 'Ship for spikes, failures, and messy production reality.',
-      tags: [],
-    },
-    craft: {
-      body: 'Write code others can read and systems that evolve cleanly.',
-      tags: [],
-    },
   },
-  // Balanced — what I do + typical tools
   1: {
     performance: {
       body: 'Keep apps responsive as features grow: lean bundles, smart caching, and Core Web Vitals that reflect real users.',
@@ -93,16 +71,7 @@ const STACK_COPY: Record<0 | 1 | 2, Record<StoryId, StoryCopy>> = {
       body: 'Match each layer to its strength: Scala and FastAPI for core logic, Laravel for rapid delivery, Nuxt and TypeScript for sharp frontends.',
       tags: ['Scala', 'FastAPI', 'Laravel', 'Nuxt', 'TypeScript'],
     },
-    reliability: {
-      body: 'Design for production: connection pooling, structured logs, and CI/CD pipelines people actually trust.',
-      tags: ['CI/CD', 'Observability', 'Connection pooling'],
-    },
-    craft: {
-      body: 'Prefer clear composables and strong types over clever tricks; keep docs close to the code.',
-      tags: ['TypeScript', 'Composables', 'Documentation'],
-    },
   },
-  // Advanced — specifics without long paragraphs
   2: {
     performance: {
       body: 'Tune query plans (PgBouncer), cache with Redis and explicit invalidation from Scala services, and split routes in Nuxt. Targets: LCP under 1.2s, CLS under 0.05.',
@@ -120,14 +89,6 @@ const STACK_COPY: Record<0 | 1 | 2, Record<StoryId, StoryCopy>> = {
       body: 'Scala and FastAPI for correctness-critical paths; Laravel for glue and fast iteration; Nuxt, Vue, and TypeScript for the experience layer.',
       tags: ['Scala', 'FastAPI', 'Laravel', 'Nuxt', 'gRPC', 'Kafka'],
     },
-    reliability: {
-      body: 'Pooling via Supavisor, traces through OpenTelemetry Nitro plugins, and pipelines with clear delivery semantics for data work.',
-      tags: ['OpenTelemetry', 'Supavisor', 'Kafka', 'CI/CD'],
-    },
-    craft: {
-      body: 'Composable-first Vue, Drizzle for typed data access, and structured logs so production issues are traceable, not guesswork.',
-      tags: ['Drizzle ORM', 'Composables', 'Structured logging'],
-    },
   },
 }
 
@@ -142,7 +103,7 @@ const SECTION_HEADERS: Record<0 | 1 | 2, { eyebrow: string; titleLead: string; t
     eyebrow: 'Approach',
     titleLead: 'What I ',
     titleAccent: 'focus on',
-    intro: 'Six principles that guide how I design, build, and ship software.',
+    intro: 'Four pillars that guide how I design, build, and ship software.',
   },
   1: {
     eyebrow: 'Principles',
@@ -154,7 +115,7 @@ const SECTION_HEADERS: Record<0 | 1 | 2, { eyebrow: string; titleLead: string; t
     eyebrow: 'Engineering principles',
     titleLead: 'How I ',
     titleAccent: 'build in practice',
-    intro: 'Same six ideas, with more technical detail. Depth follows your complexity setting.',
+    intro: 'Same four ideas, with more technical detail. Depth follows your complexity setting.',
   },
 }
 
