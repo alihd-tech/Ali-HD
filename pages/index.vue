@@ -72,7 +72,7 @@
                 <Keypad
                   v-if="!showHeroCustomizer"
                   key="keypad"
-                  @code-complete="showHeroCustomizer = true"
+                  @code-complete="unlockHeroCustomizer"
                 />
                 <div
                   v-else
@@ -168,7 +168,7 @@
         class="relative scroll-mt-20 border-b border-base-300/25 py-12 sm:py-14 md:py-16 lg:py-20"
       >
         <div class="container relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <header class="index-section-header mb-10 flex flex-col gap-4 sm:mb-12 md:flex-row md:items-end md:justify-between">
+          <header class="index-section-header mb-8 flex flex-col gap-4 sm:mb-9 md:flex-row md:items-end md:justify-between">
             <div class="max-w-xl space-y-3">
               <p class="index-eyebrow">Portfolio</p>
               <h2
@@ -183,121 +183,172 @@
             </div>
           </header>
 
-          <div class="grid gap-6 lg:grid-cols-2">
-            <article
+          <ul class="projects-grid m-0 list-none space-y-3 p-0 sm:grid sm:grid-cols-1 sm:gap-4 sm:space-y-0 lg:grid-cols-1 lg:gap-5">
+            <li
               v-for="project in projects"
               :key="project.title"
-              class="index-project group flex flex-col overflow-hidden rounded-2xl border border-base-300/40 bg-base-100/35 transition-colors duration-300 hover:border-primary/25 hover:bg-base-100/55"
-              :class="{ 'lg:col-span-2': project.featured || project.wide }"
+              class="min-w-0"
             >
-              <div
-                v-if="project.banner"
-                class="relative aspect-[3/1] overflow-hidden border-b border-base-300/30 sm:aspect-[2.4/1]"
+              <article
+                class="index-project-card group relative flex h-full flex-col overflow-hidden rounded-2xl border border-base-300/40 bg-base-100/40 transition-[border-color,box-shadow,background-color] duration-300 hover:border-primary/25 hover:bg-base-100/55 hover:shadow-lg hover:shadow-primary/[0.07]"
+                :class="projectCardAccent(project.accent)"
               >
-                <img
-                  :src="project.banner"
-                  :alt="project.bannerAlt"
-                  class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-                  loading="lazy"
-                  decoding="async"
-                />
                 <div
-                  class="absolute inset-0 bg-gradient-to-t from-base-100/90 via-base-100/20 to-transparent"
-                  aria-hidden="true"
-                />
-              </div>
-
-              <div class="flex flex-1 flex-col p-6 sm:p-7">
-                <div class="mb-4 flex flex-wrap items-start justify-between gap-3">
-                  <div class="flex min-w-0 items-center gap-3">
+                  v-if="project.banner"
+                  class="index-project-banner relative w-full overflow-hidden border-b border-base-300/20"
+                >
+                  <img
+                    :src="project.banner"
+                    :alt="project.bannerAlt"
+                    class="index-project-thumb aspect-[16/9] h-auto w-full object-cover transition-[transform,filter] duration-700 ease-out group-hover:scale-[1.04] group-hover:saturate-110 sm:aspect-[2.35/1] md:aspect-[2.65/1]"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div
+                    class="pointer-events-none absolute inset-0 bg-gradient-to-t from-base-100 via-base-100/25 to-base-100/5"
+                    aria-hidden="true"
+                  />
+                  <div
+                    class="index-project-banner-accent pointer-events-none absolute inset-0 opacity-60 transition-opacity duration-500 group-hover:opacity-100"
+                    :class="projectCardAccent(project.accent)"
+                    aria-hidden="true"
+                  />
+                  <div
+                    class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-base-content/[0.06]"
+                    aria-hidden="true"
+                  />
+                  <div class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-3 sm:p-4">
                     <img
                       v-if="project.logo"
                       :src="project.logo"
                       :alt="project.logoAlt"
-                      class="h-10 w-10 rounded-lg border border-base-300/40 bg-base-100 object-contain p-1"
+                      class="h-9 w-9 rounded-xl border border-base-300/40 bg-base-100/90 object-contain p-1 shadow-lg backdrop-blur-sm sm:h-10 sm:w-10"
                       loading="lazy"
                       decoding="async"
                     />
-                    <div>
-                      <p class="text-[11px] font-semibold uppercase tracking-wider text-base-content/50">
+                    <time
+                      class="ms-auto rounded-lg border border-base-300/35 bg-base-100/80 px-2 py-1 text-[11px] font-semibold tabular-nums text-base-content/70 shadow-sm backdrop-blur-sm"
+                      :datetime="projectYearDatetime(project.year)"
+                    >
+                      {{ project.year }}
+                    </time>
+                  </div>
+                </div>
+
+                <div class="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
+                <header class="mb-2 flex items-start justify-between gap-2 sm:mb-2.5">
+                  <div class="min-w-0 space-y-1">
+                    <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
+                      <p class="text-[10px] font-semibold uppercase tracking-[0.14em] text-base-content/50">
                         {{ project.category }}
-                        <template v-if="project.status">
-                          <span class="text-base-content/35"> &middot; {{ project.status }}</span>
-                        </template>
                       </p>
-                      <h3 class="font-quicksand text-lg font-bold text-base-content sm:text-xl">
-                        {{ project.title }}
-                      </h3>
+                      <span
+                        v-if="project.status"
+                        class="inline-flex items-center gap-1 rounded-full border px-1.5 py-px text-[10px] font-medium leading-tight"
+                        :class="projectStatusClass(project.status)"
+                      >
+                        <span
+                          class="h-1 w-1 shrink-0 rounded-full"
+                          :class="projectStatusDotClass(project.status)"
+                          aria-hidden="true"
+                        />
+                        {{ project.status }}
+                      </span>
                     </div>
+                    <h3 class="truncate font-quicksand text-base font-bold leading-tight text-base-content sm:text-[1.0625rem]">
+                      {{ project.title }}
+                    </h3>
                   </div>
                   <time
-                    class="shrink-0 text-sm font-medium tabular-nums text-base-content/50"
+                    class="shrink-0 pt-0.5 text-[11px] font-medium tabular-nums text-base-content/45"
                     :datetime="projectYearDatetime(project.year)"
                   >
                     {{ project.year }}
                   </time>
-                </div>
+                </header>
 
-                <p class="mb-4 flex-1 text-sm leading-relaxed text-base-content/75 sm:text-[0.9375rem]">
+                <p class="mb-2 line-clamp-2 text-xs leading-relaxed text-base-content/72 sm:text-[0.8125rem]">
                   {{ project.description }}
                 </p>
 
                 <ul
                   v-if="project.highlights?.length"
-                  class="mb-4 space-y-2 border-l border-base-300/40 pl-4"
+                  class="mb-2.5 grid gap-0.5 sm:grid-cols-2 sm:gap-x-3 sm:gap-y-0.5"
                   :aria-label="`Highlights for ${project.title}`"
                 >
                   <li
                     v-for="highlight in project.highlights"
                     :key="highlight"
-                    class="text-sm leading-snug text-base-content/70"
+                    class="flex min-w-0 items-start gap-1.5 text-[11px] leading-snug text-base-content/62 sm:text-xs"
                   >
-                    {{ highlight }}
+                    <Icon
+                      name="fluent:checkmark-circle-12-filled"
+                      class="mt-px h-3 w-3 shrink-0 opacity-70"
+                      :class="projectIconClass(project.accent)"
+                      aria-hidden="true"
+                    />
+                    <span class="line-clamp-2">{{ highlight }}</span>
                   </li>
                 </ul>
 
-                <p
-                  v-if="project.tags?.length"
-                  class="mb-5 text-xs text-base-content/50"
-                >
-                  {{ project.tags.join(' \u00B7 ') }}
-                </p>
+                <footer class="mt-auto flex flex-col gap-2.5 border-t border-base-300/20 pt-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+                  <ul
+                    v-if="project.tags?.length"
+                    class="m-0 flex min-w-0 list-none flex-wrap gap-1 p-0"
+                    aria-label="Technologies"
+                  >
+                    <li
+                      v-for="tag in project.tags.slice(0, 5)"
+                      :key="tag"
+                    >
+                      <span class="index-project-tag inline-block max-w-[8.5rem] truncate rounded-md border border-base-300/35 bg-base-200/35 px-1.5 py-px text-[10px] font-medium text-base-content/58">
+                        {{ tag }}
+                      </span>
+                    </li>
+                    <li v-if="project.tags.length > 5">
+                      <span
+                        class="inline-block rounded-md border border-dashed border-base-300/40 px-1.5 py-px text-[10px] font-medium text-base-content/45"
+                        :title="project.tags.slice(5).join(', ')"
+                      >
+                        +{{ project.tags.length - 5 }}
+                      </span>
+                    </li>
+                  </ul>
 
-                <div
-                  class="mt-auto flex flex-wrap items-center gap-3 border-t border-base-300/25 pt-5"
-                >
-                  <a
-                    v-if="project.href"
-                    :href="project.href"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn btn-primary btn-sm gap-1.5"
-                    :aria-label="`${project.ctaLabel || 'Open'} ${project.title} (opens in new tab)`"
-                  >
-                    {{ project.ctaLabel || 'Open' }}
-                    <Icon name="fluent:open-24-regular" width="14" height="14" aria-hidden="true" />
-                  </a>
-                  <a
-                    v-if="project.repo"
-                    :href="project.repo"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="btn btn-ghost btn-sm gap-1.5 text-base-content/70 hover:text-primary"
-                    :aria-label="`View ${project.title} on GitHub (opens in new tab)`"
-                  >
-                    <Icon name="ph:github-logo" width="14" height="14" aria-hidden="true" />
-                    Repository
-                  </a>
-                  <span
-                    v-if="!project.href && !project.repo"
-                    class="text-sm text-base-content/55"
-                  >
-                    Private / internal
-                  </span>
-                </div>
+                  <div class="flex shrink-0 flex-wrap items-center gap-1.5 sm:justify-end">
+                    <a
+                      v-if="project.href"
+                      :href="project.href"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="btn btn-primary btn-xs gap-1 px-2.5 min-h-7 h-7"
+                      :aria-label="`${project.ctaLabel || 'Open'} ${project.title} (opens in new tab)`"
+                    >
+                      <span class="max-w-[6.5rem] truncate sm:max-w-none">{{ project.ctaLabel || 'Open' }}</span>
+                      <Icon name="fluent:open-24-regular" width="12" height="12" aria-hidden="true" />
+                    </a>
+                    <a
+                      v-if="project.repo && project.repo !== project.href"
+                      :href="project.repo"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="btn btn-ghost btn-xs min-h-7 h-7 w-7 px-0 text-base-content/65 hover:text-primary"
+                      :aria-label="`View ${project.title} on GitHub (opens in new tab)`"
+                    >
+                      <Icon name="ph:github-logo" width="14" height="14" aria-hidden="true" />
+                    </a>
+                    <span
+                      v-if="!project.href && !project.repo"
+                      class="text-[11px] text-base-content/50"
+                    >
+                      Private / internal
+                    </span>
+                  </div>
+                </footer>
               </div>
             </article>
-          </div>
+            </li>
+          </ul>
         </div>
       </section>
 
@@ -343,7 +394,22 @@ useSiteSeo({
   ],
 })
 
+const KEYPAD_UNLOCKED_KEY = 'alihd-keypad-unlocked'
+
 const showHeroCustomizer = ref(false)
+
+function unlockHeroCustomizer() {
+  showHeroCustomizer.value = true
+  if (import.meta.client) {
+    localStorage.setItem(KEYPAD_UNLOCKED_KEY, '1')
+  }
+}
+
+onMounted(() => {
+  if (localStorage.getItem(KEYPAD_UNLOCKED_KEY) === '1') {
+    showHeroCustomizer.value = true
+  }
+})
 
 const { heroCopy, activeHeroLevel } = useHeroContent()
 const { activeLevel, complexityLabel, sectionHeader, stackStories } = usePrinciplesStack()
@@ -390,6 +456,32 @@ function stackIconClass(accent = 'primary') {
   return ACCENT_ICON[accent] ?? ACCENT_ICON.primary
 }
 
+function projectCardAccent(accent = 'primary') {
+  return `border-l-[3px] ${ACCENT_BORDER[accent] ?? ACCENT_BORDER.primary}`
+}
+
+function projectIconClass(accent = 'primary') {
+  return ACCENT_ICON[accent] ?? ACCENT_ICON.primary
+}
+
+function projectStatusClass(status: string) {
+  const key = status.toLowerCase()
+  if (key === 'live') {
+    return 'border-success/25 bg-success/8 text-success'
+  }
+  if (key === 'active' || key === 'ongoing') {
+    return 'border-info/25 bg-info/8 text-info'
+  }
+  return 'border-base-300/40 bg-base-200/40 text-base-content/60'
+}
+
+function projectStatusDotClass(status: string) {
+  const key = status.toLowerCase()
+  if (key === 'live') return 'bg-success'
+  if (key === 'active' || key === 'ongoing') return 'bg-info'
+  return 'bg-base-content/40'
+}
+
 const projects = [
   {
     title: 'Solanam',
@@ -405,7 +497,7 @@ const projects = [
     logo: '/favicon.ico',
     logoAlt: 'Solanam logo',
     href: 'https://solanam.com',
-    featured: true,
+    accent: 'primary',
     ctaLabel: 'solanam.com',
   },
   {
@@ -426,8 +518,7 @@ const projects = [
     logo: '/favicon.ico',
     logoAlt: 'Esimtrip logo',
     href: 'https://esimtrip.com',
-    featured: true,
-    wide: true,
+    accent: 'secondary',
     ctaLabel: 'esimtrip.com',
   },
   {
@@ -445,8 +536,7 @@ const projects = [
     logoAlt: 'Ali HD logo',
     href: 'https://github.com/alihd-tech',
     repo: 'https://github.com/alihd-tech',
-    featured: false,
-    wide: true,
+    accent: 'info',
     ctaLabel: 'GitHub',
   },
 ]
@@ -470,9 +560,24 @@ const projects = [
 }
 
 .index-card,
-.index-project {
+.index-project-card {
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+}
+
+.index-project-card {
+  min-height: 0;
+}
+
+@media (min-width: 640px) {
+  .index-project-card > div:first-child {
+    align-self: stretch;
+    min-height: 7.75rem;
+  }
+
+  .index-project-thumb {
+    min-height: 100%;
+  }
 }
 
 .index-contact-link:focus-visible {
@@ -494,7 +599,7 @@ const projects = [
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .index-project img {
+  .index-project-thumb {
     transition: none;
   }
 

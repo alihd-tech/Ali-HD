@@ -1,15 +1,20 @@
+/**
+ * Principles stack — six cards whose copy scales with site complexity (0–2).
+ * Level 0: one-line summaries. Level 1: what + how. Level 2: concrete stack & practices.
+ */
+
 const STACK_STORIES = [
   {
     id: 'performance',
     icon: 'fluent:rocket-24-filled',
     accent: 'primary',
-    title: 'Performance Engineering',
+    title: 'Performance',
   },
   {
     id: 'architecture',
     icon: 'fluent:building-cube-24-filled',
     accent: 'secondary',
-    title: 'Thoughtful Architecture',
+    title: 'Architecture',
   },
   {
     id: 'ux',
@@ -21,19 +26,19 @@ const STACK_STORIES = [
     id: 'fullstack',
     icon: 'fluent:layer-24-filled',
     accent: 'success',
-    title: 'Full-Stack Delivery',
+    title: 'Full-Stack',
   },
   {
     id: 'reliability',
     icon: 'fluent:shield-checkmark-24-filled',
     accent: 'primary',
-    title: 'Reliability & Scale',
+    title: 'Reliability',
   },
   {
     id: 'craft',
     icon: 'fluent:handshake-24-filled',
     accent: 'secondary',
-    title: 'Engineering Craft',
+    title: 'Craft',
   },
 ] as const
 
@@ -41,83 +46,87 @@ type StoryId = (typeof STACK_STORIES)[number]['id']
 
 type StoryCopy = { body: string; tags: string[] }
 
+/** Card body + optional tag line per story, keyed by complexity tier. */
 const STACK_COPY: Record<0 | 1 | 2, Record<StoryId, StoryCopy>> = {
+  // Simple — headline only
   0: {
     performance: {
-      body: 'Systems that stay fast under real load, not just in benchmarks.',
+      body: 'Stay fast under real traffic, not just in benchmarks.',
       tags: [],
     },
     architecture: {
-      body: 'Patterns that make complexity manageable, not just tolerable.',
+      body: 'Structure that handles growth without turning into a maze.',
       tags: [],
     },
     ux: {
-      body: 'Interfaces that respect people\'s time and attention.',
+      body: 'Interfaces that respect time, attention, and accessibility.',
       tags: [],
     },
     fullstack: {
-      body: 'From database schema to pixel-perfect UI — every layer matters.',
+      body: 'Own the path from database schema to polished UI.',
       tags: [],
     },
     reliability: {
-      body: 'Production systems built for real-world conditions.',
+      body: 'Ship for spikes, failures, and messy production reality.',
       tags: [],
     },
     craft: {
-      body: 'Code that others can reason about and systems that grow gracefully.',
+      body: 'Write code others can read and systems that evolve cleanly.',
       tags: [],
     },
   },
+  // Balanced — what I do + typical tools
   1: {
     performance: {
-      body: 'Systems that stay fast under real load — optimized query plans, intelligent caching, and code splitting that keeps time-to-interactive low even as features grow.',
-      tags: ['Code Splitting', 'Caching', 'Core Web Vitals'],
+      body: 'Keep apps responsive as features grow: lean bundles, smart caching, and Core Web Vitals that reflect real users.',
+      tags: ['Code splitting', 'Caching', 'Core Web Vitals'],
     },
     architecture: {
-      body: 'Patterns that make complexity manageable — event-driven modules, clear domain boundaries, and separation of concerns that let teams move independently.',
-      tags: ['Domain-Driven', 'Event-Driven', 'Modular'],
+      body: 'Use clear boundaries—domains, events, and modules—so teams can change one part without breaking the rest.',
+      tags: ['Domain-driven design', 'Event-driven', 'Modular'],
     },
     ux: {
-      body: 'Interfaces that respect people\'s time and attention — progressive enhancement, accessibility-first, and interactions that feel instant.',
-      tags: ['A11y', 'Progressive Enhancement', 'Micro-interactions'],
+      body: 'Build accessible, progressively enhanced UIs with interactions that feel immediate, not sluggish.',
+      tags: ['A11y', 'Progressive enhancement', 'Micro-interactions'],
     },
     fullstack: {
-      body: 'From database schema to pixel-perfect UI — Scala and FastAPI for robust backends, Laravel for rapid iteration, and Nuxt/TypeScript for frontends that feel instant.',
+      body: 'Match each layer to its strength: Scala and FastAPI for core logic, Laravel for rapid delivery, Nuxt and TypeScript for sharp frontends.',
       tags: ['Scala', 'FastAPI', 'Laravel', 'Nuxt', 'TypeScript'],
     },
     reliability: {
-      body: 'Production systems built for real-world conditions — connection pooling, structured logging, and CI/CD pipelines that teams actually trust.',
-      tags: ['CI/CD', 'Observability', 'Connection Pooling'],
+      body: 'Design for production: connection pooling, structured logs, and CI/CD pipelines people actually trust.',
+      tags: ['CI/CD', 'Observability', 'Connection pooling'],
     },
     craft: {
-      body: 'Code that others can reason about and systems that grow gracefully — well-named composables, proper TypeScript types, and documentation that stays current.',
+      body: 'Prefer clear composables and strong types over clever tricks; keep docs close to the code.',
       tags: ['TypeScript', 'Composables', 'Documentation'],
     },
   },
+  // Advanced — specifics without long paragraphs
   2: {
     performance: {
-      body: 'Systems that stay fast under real load — optimized query plans with PgBouncer in transaction mode, Redis caching with invalidation events from Scala services, and route-level code splitting via Nuxt 4 route rules. I target LCP < 1.2s and CLS < 0.05 on production.',
-      tags: ['Code Splitting', 'Redis Invalidation', 'PgBouncer', 'Core Web Vitals', 'Edge Rendering'],
+      body: 'Tune query plans (PgBouncer), cache with Redis and explicit invalidation from Scala services, and split routes in Nuxt. Targets: LCP under 1.2s, CLS under 0.05.',
+      tags: ['PgBouncer', 'Redis', 'Route rules', 'Core Web Vitals', 'Edge'],
     },
     architecture: {
-      body: 'Patterns that make complexity manageable — event-driven Nitro modules with clear domain boundaries, OpenAPI specs generated from Scala\'s tapir definitions, and auto-generated TypeScript types that eliminate the "type mismatch" class of bugs across the stack.',
-      tags: ['Domain-Driven', 'Event-Driven Modules', 'OpenAPI Codegen', 'tapir/http4s'],
+      body: 'Nitro modules with domain boundaries; OpenAPI from Scala tapir; generated TypeScript types so front and back stay aligned.',
+      tags: ['DDD', 'Nitro modules', 'OpenAPI codegen', 'tapir / http4s'],
     },
     ux: {
-      body: 'Interfaces that respect people\'s time and attention — progressive enhancement with SSR/SPA hybrid rendering, WCAG 2.2 AA compliance, and micro-interactions via GSAP that provide clear visual feedback without jank.',
-      tags: ['WCAG 2.2 AA', 'Hybrid SSR/SPA', 'GSAP', 'Progressive Enhancement'],
+      body: 'Hybrid SSR/SPA where it helps, WCAG 2.2 AA by default, and GSAP for feedback that does not jank the main thread.',
+      tags: ['WCAG 2.2 AA', 'SSR / SPA', 'GSAP'],
     },
     fullstack: {
-      body: 'From database schema to pixel-perfect UI — Scala and FastAPI for correctness-critical business logic, Laravel for rapid prototyping and glue code, and Nuxt/Vue with TypeScript for frontends. Each layer does what it\'s best at.',
-      tags: ['Scala', 'FastAPI', 'Laravel', 'Nuxt', 'TypeScript', 'gRPC', 'Kafka'],
+      body: 'Scala and FastAPI for correctness-critical paths; Laravel for glue and fast iteration; Nuxt, Vue, and TypeScript for the experience layer.',
+      tags: ['Scala', 'FastAPI', 'Laravel', 'Nuxt', 'gRPC', 'Kafka'],
     },
     reliability: {
-      body: 'Production systems built for real-world conditions — connection pooling via Supavisor, OpenTelemetry integration via Nitro plugins for distributed tracing, and CI/CD pipelines with exactly-once processing semantics for data pipelines.',
-      tags: ['OpenTelemetry', 'Supavisor', 'Kafka', 'Exactly-Once', 'CI/CD'],
+      body: 'Pooling via Supavisor, traces through OpenTelemetry Nitro plugins, and pipelines with clear delivery semantics for data work.',
+      tags: ['OpenTelemetry', 'Supavisor', 'Kafka', 'CI/CD'],
     },
     craft: {
-      body: 'Code that others can reason about and systems that grow gracefully — well-named composables over clever abstractions, proper TypeScript types with Drizzle ORM, and structured logging that makes production debugging tractable.',
-      tags: ['Drizzle ORM', 'Composables', 'Structured Logging', 'Type Safety'],
+      body: 'Composable-first Vue, Drizzle for typed data access, and structured logs so production issues are traceable, not guesswork.',
+      tags: ['Drizzle ORM', 'Composables', 'Structured logging'],
     },
   },
 }
@@ -128,33 +137,31 @@ function principlesLevel(level: number): 0 | 1 | 2 {
   return 0
 }
 
+const SECTION_HEADERS: Record<0 | 1 | 2, { eyebrow: string; titleLead: string; titleAccent: string; intro: string }> = {
+  0: {
+    eyebrow: 'Approach',
+    titleLead: 'What I ',
+    titleAccent: 'focus on',
+    intro: 'Six principles that guide how I design, build, and ship software.',
+  },
+  1: {
+    eyebrow: 'Principles',
+    titleLead: 'How I ',
+    titleAccent: 'build',
+    intro: 'The balance I aim for across the stack—speed, structure, and experience.',
+  },
+  2: {
+    eyebrow: 'Engineering principles',
+    titleLead: 'How I ',
+    titleAccent: 'build in practice',
+    intro: 'Same six ideas, with more technical detail. Depth follows your complexity setting.',
+  },
+}
+
 export function usePrinciplesStack() {
   const store = useAppStore()
 
-  const sectionHeader = computed(() => {
-    if (store.complexityLevel >= 2) {
-      return {
-        eyebrow: 'Engineering Principles',
-        titleLead: 'How I approach ',
-        titleAccent: 'building',
-        intro: 'Every system I build follows these core principles — from database schema to pixel-perfect UI. The depth of each principle adapts to the complexity you choose.',
-      }
-    }
-    if (store.complexityLevel >= 1) {
-      return {
-        eyebrow: 'Engineering Principles',
-        titleLead: 'How I build ',
-        titleAccent: 'software',
-        intro: 'Core principles that guide my work across the full stack.',
-      }
-    }
-    return {
-      eyebrow: 'Approach',
-      titleLead: 'What I ',
-      titleAccent: 'focus on',
-      intro: 'The essentials of how I work.',
-    }
-  })
+  const sectionHeader = computed(() => SECTION_HEADERS[principlesLevel(store.complexityLevel)])
 
   const stackStories = computed(() => {
     const copy = STACK_COPY[principlesLevel(store.complexityLevel)]
