@@ -44,10 +44,6 @@
               <div class="max-w-2xl space-y-4">
                 <div class="flex flex-wrap items-center gap-3">
                   <p class="site-footer-eyebrow">Contact</p>
-                  <span class="site-footer-status" role="status">
-                    <span class="site-footer-status-dot" aria-hidden="true" />
-                    Open to opportunities
-                  </span>
                 </div>
                 <h2
                   id="footer-heading"
@@ -68,7 +64,7 @@
 
           <div class="grid lg:grid-cols-12">
             <aside
-              class="flex flex-col gap-6 border-b border-base-300/30 p-6 sm:p-8 lg:col-span-4 lg:border-b-0 lg:border-r lg:p-8 xl:p-10"
+              class="flex flex-col gap-6 border-b border-base-300/30 p-4 sm:p-5 lg:col-span-4 lg:border-b-0 lg:border-r lg:p-6 xl:p-8"
             >
               <NuxtLink to="/" class="site-footer-profile group">
                 <div class="relative shrink-0">
@@ -133,20 +129,9 @@
             </aside>
 
             <section
-              class="flex flex-col p-6 sm:p-8 lg:col-span-8 lg:p-8 xl:p-10"
+              class="flex flex-col p-4 lg:col-span-8 lg:p-5 xl:p-6"
               aria-label="Social and external links"
-            >
-              <div class="mb-5 flex items-end justify-between gap-4">
-                <div>
-                  <p class="site-footer-nav-label">Connect</p>
-                  <p class="mt-1 text-sm text-base-content/55">
-                    Profiles, repos, and direct messages
-                  </p>
-                </div>
-                <span class="hidden text-xs text-base-content/40 sm:inline">
-                  {{ socialLinks.length }} channels
-                </span>
-              </div>
+            > 
 
               <ul class="grid flex-1 gap-3 sm:grid-cols-2">
                 <li v-for="social in socialLinks" :key="social.name">
@@ -182,21 +167,10 @@
           class="container mx-auto flex max-w-6xl flex-col items-center gap-5 px-4 py-5 sm:px-6 lg:flex-row lg:justify-between lg:gap-6 lg:px-8 lg:py-6"
         >
           <p class="text-center text-xs text-base-content/50 sm:text-left sm:text-sm">
-            © {{ currentYear }}
-            <NuxtLink to="/" class="site-footer-inline-link">Ali Heydari</NuxtLink>.
+            <NuxtLink to="/" class="site-footer-inline-link">Ali Heydari</NuxtLink>. © {{ currentYear }}
             Crafted with care.
           </p>
-
-          <nav aria-label="Footer legal and utility" class="flex flex-wrap items-center justify-center gap-2">
-            <NuxtLink
-              v-for="link in footerMetaLinks"
-              :key="link.href"
-              :to="link.href"
-              class="site-footer-meta-chip"
-            >
-              {{ link.label }}
-            </NuxtLink>
-          </nav>
+ 
 
           <a href="#top" class="site-footer-back-top">
             <Icon name="ph:arrow-up-bold" class="h-4 w-4" aria-hidden="true" />
@@ -211,27 +185,13 @@
 <script setup lang="ts">
 const currentYear = new Date().getFullYear()
 const route = useRoute()
-
-const footerNav = [
-  { label: 'Home', href: '/', icon: 'ph:house-bold' },
-  { label: 'About', href: '/about', icon: 'ph:user-bold' },
-  { label: 'Projects', href: '/projects', icon: 'ph:folder-bold' },
-  { label: 'Blog', href: '/blog', icon: 'ph:article-bold' },
-  { label: 'Contact', href: '/contact', icon: 'ph:envelope-bold' },
-] as const
-
-const pageAnchors = [
-  { label: 'Top', href: '#top' },
+ 
+const pageAnchors = [ 
   { label: 'Approach', href: '#stack' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
 ] as const
-
-const footerMetaLinks = [
-  { label: 'About', href: '/about' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Contact', href: '/contact' },
-] as const
+ 
 
 const showPageAnchors = computed(() => route.path === '/')
 

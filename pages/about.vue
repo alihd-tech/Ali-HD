@@ -5,15 +5,19 @@
       <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,color-mix(in_srgb,var(--color-primary)_5%,transparent),transparent)]" aria-hidden="true" />
 
       <div class="container section-container relative z-10 mx-auto max-w-5xl">
-        <div class="space-y-6">
+        <AppBreadcrumb :items="breadcrumbItems" class="mb-6" />
+        <div
+          :key="`about-hero-${isNerd ? 'nerd' : 'plain'}`"
+          class="space-y-6"
+        >
           <div class="inline-block">
             <span class="text-[11px] font-semibold uppercase tracking-[0.24em] text-primary/90">About me</span>
           </div>
           <h1 class="font-quicksand text-4xl font-bold leading-tight tracking-tight md:text-5xl">
-            Full-Stack Engineer <span class="bg-gradient-to-r from-primary via-secondary to-info bg-clip-text text-transparent">&</span> Web Architect
+            {{ content.heroTitle }}<span class="bg-gradient-to-r from-primary via-secondary to-info bg-clip-text text-transparent">{{ content.heroTitleAccent }}</span>
           </h1>
           <p class="text-lg leading-relaxed text-base-content/75 md:text-xl">
-            Building thoughtfully engineered systems where performance, architecture, and user experience align. Five years of hands-on experience shipping production software across the full stack.
+            {{ content.heroSubtitle }}
           </p>
         </div>
       </div>
@@ -24,15 +28,19 @@
       <div class="container section-container relative z-10 mx-auto max-w-5xl">
         <div class="grid gap-12 lg:grid-cols-3">
           <!-- Main Column -->
-          <div class="lg:col-span-2 space-y-12">
+          <div
+            :key="`about-main-${isNerd ? 'nerd' : 'plain'}`"
+            class="lg:col-span-2 space-y-12"
+          >
             <!-- Biography -->
             <div class="space-y-4">
               <h2 class="font-quicksand text-2xl font-bold text-base-content">Who I am</h2>
-              <p class="leading-relaxed text-base-content/75">
-                I'm a full-stack engineer based in Iran with a passion for building systems that scale. I specialize in designing and implementing robust architectures that handle real-world complexity without sacrificing developer experience.
-              </p>
-              <p class="leading-relaxed text-base-content/75">
-                My work spans backend services (Scala, FastAPI, Laravel), frontend interfaces (Nuxt, Vue, TypeScript), and infrastructure (Docker, PostgreSQL, Redis). I believe in shipping things fast while maintaining high standards for code quality and system reliability.
+              <p
+                v-for="(paragraph, index) in content.bio"
+                :key="`bio-${index}`"
+                class="leading-relaxed text-base-content/75"
+              >
+                {{ paragraph }}
               </p>
             </div>
 
@@ -40,28 +48,16 @@
             <div class="space-y-4">
               <h2 class="font-quicksand text-2xl font-bold text-base-content">Core Expertise</h2>
               <div class="grid gap-4 sm:grid-cols-2">
-                <div class="rounded-2xl border border-base-300/40 bg-base-100/50 p-5 backdrop-blur">
-                  <h3 class="font-bold text-primary mb-2">Backend Engineering</h3>
+                <div
+                  v-for="item in content.expertise"
+                  :key="item.title"
+                  class="rounded-2xl border border-base-300/40 bg-base-100/50 p-5 backdrop-blur"
+                >
+                  <h3 class="font-bold mb-2" :class="expertiseTitleClass(item.accent)">
+                    {{ item.title }}
+                  </h3>
                   <p class="text-sm leading-relaxed text-base-content/70">
-                    Scala, FastAPI, Laravel. Building APIs, data pipelines, and microservices that stay performant under load.
-                  </p>
-                </div>
-                <div class="rounded-2xl border border-base-300/40 bg-base-100/50 p-5 backdrop-blur">
-                  <h3 class="font-bold text-secondary mb-2">Frontend Architecture</h3>
-                  <p class="text-sm leading-relaxed text-base-content/70">
-                    Nuxt, Vue, TypeScript. Designing component systems and state management that scale with teams.
-                  </p>
-                </div>
-                <div class="rounded-2xl border border-base-300/40 bg-base-100/50 p-5 backdrop-blur">
-                  <h3 class="font-bold text-info mb-2">Database & Infrastructure</h3>
-                  <p class="text-sm leading-relaxed text-base-content/70">
-                    PostgreSQL, Redis, Docker. Provisioning, scaling, and maintaining production systems reliably.
-                  </p>
-                </div>
-                <div class="rounded-2xl border border-base-300/40 bg-base-100/50 p-5 backdrop-blur">
-                  <h3 class="font-bold text-success mb-2">Product Engineering</h3>
-                  <p class="text-sm leading-relaxed text-base-content/70">
-                    Full-stack delivery from concept to shipping. Balancing technical excellence with time-to-market.
+                    {{ item.body }}
                   </p>
                 </div>
               </div>
@@ -71,26 +67,18 @@
             <div class="space-y-4">
               <h2 class="font-quicksand text-2xl font-bold text-base-content">Technical Skills</h2>
               <div class="space-y-3">
-                <div>
-                  <p class="text-sm font-medium text-base-content mb-2">Languages</p>
+                <div
+                  v-for="group in content.skills"
+                  :key="group.label"
+                >
+                  <p class="text-sm font-medium text-base-content mb-2">{{ group.label }}</p>
                   <div class="flex flex-wrap gap-2">
-                    <span v-for="skill in ['TypeScript', 'Scala', 'Python', 'PHP', 'Rust', 'Zig']" :key="skill" class="rounded-full border border-primary/30 bg-primary/8 px-3 py-1 text-xs font-medium text-primary">
-                      {{ skill }}
-                    </span>
-                  </div>
-                </div>
-                <div>
-                  <p class="text-sm font-medium text-base-content mb-2">Frameworks & Libraries</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span v-for="skill in ['Nuxt', 'Vue.js', 'React', 'Next.js', 'FastAPI', 'Laravel', 'http4s']" :key="skill" class="rounded-full border border-secondary/30 bg-secondary/8 px-3 py-1 text-xs font-medium text-secondary">
-                      {{ skill }}
-                    </span>
-                  </div>
-                </div>
-                <div>
-                  <p class="text-sm font-medium text-base-content mb-2">Infrastructure & Tools</p>
-                  <div class="flex flex-wrap gap-2">
-                    <span v-for="skill in ['PostgreSQL', 'Redis', 'Docker', 'Kubernetes', 'Git', 'Linux']" :key="skill" class="rounded-full border border-info/30 bg-info/8 px-3 py-1 text-xs font-medium text-info">
+                    <span
+                      v-for="skill in group.items"
+                      :key="skill"
+                      class="rounded-full border px-3 py-1 text-xs font-medium"
+                      :class="skillTagClass(group.accent)"
+                    >
                       {{ skill }}
                     </span>
                   </div>
@@ -101,30 +89,46 @@
 
           <!-- Sidebar -->
           <aside class="space-y-6">
-            <!-- Quick Facts -->
+            <!-- Nerd mode -->
             <div class="rounded-2xl border border-base-300/40 bg-base-100/50 p-6 backdrop-blur">
-              <h3 class="font-bold text-base-content mb-4 flex items-center gap-2">
-                <Icon name="fluent:info-24-filled" class="text-primary" />
-                Quick Facts
-              </h3>
-              <ul class="space-y-3 text-sm">
-                <li class="flex gap-3">
-                  <span class="font-semibold text-primary">Location</span>
-                  <span class="text-base-content/70">Iran, Remote</span>
-                </li>
-                <li class="flex gap-3">
-                  <span class="font-semibold text-primary">Experience</span>
-                  <span class="text-base-content/70">5+ years</span>
-                </li>
-                <li class="flex gap-3">
-                  <span class="font-semibold text-primary">Focus</span>
-                  <span class="text-base-content/70">Full-stack systems</span>
-                </li>
-                <li class="flex gap-3">
-                  <span class="font-semibold text-primary">Availability</span>
-                  <span class="text-base-content/70">Contract & freelance</span>
-                </li>
-              </ul>
+              <div class="flex items-start justify-between gap-4">
+                <div class="min-w-0">
+                  <h3 class="font-bold text-base-content flex items-center gap-2">
+                    <Icon
+                      :name="isNerd ? 'fluent:code-24-filled' : 'fluent:person-24-filled'"
+                      class="text-primary shrink-0"
+                      aria-hidden="true"
+                    />
+                    Nerd mode
+                  </h3>
+                  <p class="mt-2 text-sm leading-relaxed text-base-content/65">
+                    {{ isNerd
+                      ? 'Technical depth, stack specifics, and the jargon I use with other engineers.'
+                      : 'Plain-language overview — flip on for specs, metrics, and implementation detail.' }}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  role="switch"
+                  :aria-checked="isNerd"
+                  aria-label="Toggle nerd mode"
+                  class="relative mt-0.5 h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+                  :class="isNerd ? 'bg-primary' : 'bg-base-300'"
+                  @click="store.toggleNerd()"
+                >
+                  <span
+                    class="pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow-lg ring-0 transition-transform duration-200 ease-in-out"
+                    :class="isNerd ? 'translate-x-5' : 'translate-x-0'"
+                  />
+                </button>
+              </div>
+              <p
+                class="mt-4 text-[11px] font-semibold uppercase tracking-[0.18em]"
+                :class="isNerd ? 'text-primary' : 'text-base-content/45'"
+                role="status"
+              >
+                {{ modeLabel }}
+              </p>
             </div>
 
             <!-- CTA -->
@@ -145,21 +149,34 @@
 </template>
 
 <script setup lang="ts">
-import { pageSeo, SITE_URL } from '~/utils/site'
+import { type BreadcrumbItem } from '~/composables/useBreadcrumbSchema';
 
-const seo = pageSeo.about
+const breadcrumbItems: BreadcrumbItem[] = [
+  { label: 'Home', to: '/' },
+  { label: 'About' },
+]
 
-useSiteSeo({
-  ...seo,
-  jsonLd: {
-    '@type': 'AboutPage',
-    '@id': `${SITE_URL}/about#webpage`,
-    url: `${SITE_URL}/about`,
-    name: seo.title,
-    description: seo.description,
-    isPartOf: websiteRef(),
-    about: personRef(),
-    inLanguage: 'en-US',
-  },
-})
+const store = useAppStore()
+const { content, isNerd, modeLabel } = useAboutContent()
+
+const EXPERTISE_TITLE: Record<string, string> = {
+  primary: 'text-primary',
+  secondary: 'text-secondary',
+  info: 'text-info',
+  success: 'text-success',
+}
+
+const SKILL_TAG: Record<string, string> = {
+  primary: 'border-primary/30 bg-primary/8 text-primary',
+  secondary: 'border-secondary/30 bg-secondary/8 text-secondary',
+  info: 'border-info/30 bg-info/8 text-info',
+}
+
+function expertiseTitleClass(accent: string) {
+  return EXPERTISE_TITLE[accent] ?? EXPERTISE_TITLE.primary
+}
+
+function skillTagClass(accent: string) {
+  return SKILL_TAG[accent] ?? SKILL_TAG.primary
+}
 </script>

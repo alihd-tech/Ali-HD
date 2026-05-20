@@ -50,6 +50,7 @@
                 <a
                   href="#projects"
                   class="btn bg-primary text-primary-content btn-sm w-full gap-2 px-6 sm:w-auto"
+                  :title="`${heroCopy.primaryCta} — jump to featured projects`"
                 >
                   <Icon name="fluent:folder-24-filled" width="18" height="18" aria-hidden="true" />
                   {{ heroCopy.primaryCta }}
@@ -57,6 +58,7 @@
                 <a
                   href="#stack"
                   class="btn btn-ghost btn-sm w-full gap-1.5 border border-base-300/40 text-base-content/80 hover:border-primary/30 hover:bg-base-200/40 hover:text-primary sm:w-auto"
+                  :title="`${heroCopy.secondaryCta} — jump to principles and stack`"
                 >
                   {{ heroCopy.secondaryCta }}
                   <Icon name="fluent:arrow-right-24-regular" width="16" height="16" aria-hidden="true" />
@@ -246,7 +248,7 @@
                 >
                   <img
                     :src="project.banner"
-                    :alt="project.bannerAlt"
+                    :alt="projectBannerAlt(project)"
                     class="index-project-thumb aspect-[16/9] h-auto w-full object-cover transition-[transform,filter] duration-700 ease-out group-hover:scale-[1.04] group-hover:saturate-110 sm:aspect-[2.35/1] md:aspect-[2.65/1]"
                     loading="lazy"
                     decoding="async"
@@ -268,8 +270,10 @@
                     <img
                       v-if="project.logo"
                       :src="project.logo"
-                      :alt="project.logoAlt"
+                      :alt="projectLogoAlt(project)"
                       class="h-9 w-9 rounded-xl border border-base-300/40 bg-base-100/90 object-contain p-1 shadow-lg backdrop-blur-sm sm:h-10 sm:w-10"
+                      width="40"
+                      height="40"
                       loading="lazy"
                       decoding="async"
                     />
@@ -369,7 +373,8 @@
                       target="_blank"
                       rel="noopener noreferrer"
                       class="btn btn-primary btn-xs gap-1 px-2.5 min-h-7 h-7"
-                      :aria-label="`${project.ctaLabel || 'Open'} ${project.title} (opens in new tab)`"
+                      :aria-label="projectVisitLabel(project)"
+                      :title="projectVisitLabel(project)"
                     >
                       <span class="max-w-[6.5rem] truncate sm:max-w-none">{{ project.ctaLabel || 'Open' }}</span>
                       <Icon name="fluent:open-24-regular" width="12" height="12" aria-hidden="true" />
@@ -380,7 +385,8 @@
                       target="_blank"
                       rel="noopener noreferrer"
                       class="btn btn-ghost btn-xs min-h-7 h-7 w-7 px-0 text-base-content/65 hover:text-primary"
-                      :aria-label="`View ${project.title} on GitHub (opens in new tab)`"
+                      :aria-label="projectGitHubLabel(project)"
+                      :title="projectGitHubLabel(project)"
                     >
                       <Icon name="ph:github-logo" width="14" height="14" aria-hidden="true" />
                     </a>
@@ -409,37 +415,25 @@
 </template>
 
 <script setup lang="ts">
-import { pageSeo, SITE_URL } from '~/utils/site'
+import { type PortfolioProject } from '~/data/projects';
+import { portfolioProjects as projects, projectCardAccent, projectIconClass, projectStatusClass, projectStatusDotClass, projectYearDatetime } from '~/data/projects';
 
-const homeSeo = pageSeo.home
+function projectBannerAlt(project: PortfolioProject) {
+  return project.bannerAlt ?? `${project.title} — project screenshot`
+}
 
-useSiteSeo({
-  ...homeSeo,
-  jsonLd: [
-    {
-      '@type': 'WebSite',
-      '@id': `${SITE_URL}/#website`,
-      name: 'Ali HD',
-      alternateName: ['Ali Heydari', 'alihd.ir'],
-      url: SITE_URL,
-      description: homeSeo.description,
-      inLanguage: 'en-US',
-      publisher: personRef(),
-    },
-    {
-      '@type': 'ProfilePage',
-      '@id': `${SITE_URL}/#profilepage`,
-      url: SITE_URL,
-      name: homeSeo.title,
-      description:
-        'Designing and engineering full-stack systems where performance, architecture, and user experience meet clean modern development.',
-      isPartOf: websiteRef(),
-      about: personRef(),
-      mainEntity: personRef(),
-      inLanguage: 'en-US',
-    },
-  ],
-})
+function projectLogoAlt(project: PortfolioProject) {
+  return project.logoAlt ?? `${project.title} logo`
+}
+
+function projectVisitLabel(project: PortfolioProject) {
+  const action = project.ctaLabel || 'Open'
+  return `${action} ${project.title} (opens in new tab)`
+}
+
+function projectGitHubLabel(project: PortfolioProject) {
+  return `View ${project.title} on GitHub (opens in new tab)`
+}
 
 const KEYPAD_UNLOCKED_KEY = 'alihd-keypad-unlocked'
 
@@ -475,25 +469,6 @@ onMounted(async () => {
   await ensureStructureLoaded()
   applyPersonalityToDocument()
 })
-
-function projectYearDatetime(year: string) {
-  const n = parseInt(String(year), 10)
-  return Number.isFinite(n) ? String(n) : String(year)
-}
-
-const ACCENT_BORDER: Record<string, string> = {
-  primary: 'border-primary/60 hover:border-primary',
-  secondary: 'border-l-secondary/60 hover:border-l-secondary',
-  info: 'border-l-info/60 hover:border-l-info',
-  success: 'border-l-success/60 hover:border-l-success',
-}
-
-const ACCENT_ICON: Record<string, string> = {
-  primary: 'text-primary',
-  secondary: 'text-secondary',
-  info: 'text-info',
-  success: 'text-success',
-}
 
 const STACK_CARD: Record<string, string> = {
   primary: 'hover:border-primary/35 hover:shadow-lg hover:shadow-primary/[0.08]',
@@ -554,90 +529,6 @@ function stackTagClass(accent = 'primary') {
   return STACK_TAG[accent] ?? STACK_TAG.primary
 }
 
-function projectCardAccent(accent = 'primary') {
-  return `border-l-[3px] ${ACCENT_BORDER[accent] ?? ACCENT_BORDER.primary}`
-}
-
-function projectIconClass(accent = 'primary') {
-  return ACCENT_ICON[accent] ?? ACCENT_ICON.primary
-}
-
-function projectStatusClass(status: string) {
-  const key = status.toLowerCase()
-  if (key === 'live') {
-    return 'border-success/25 bg-success/8 text-success'
-  }
-  if (key === 'active' || key === 'ongoing') {
-    return 'border-info/25 bg-info/8 text-info'
-  }
-  return 'border-base-300/40 bg-base-200/40 text-base-content/60'
-}
-
-function projectStatusDotClass(status: string) {
-  const key = status.toLowerCase()
-  if (key === 'live') return 'bg-success'
-  if (key === 'active' || key === 'ongoing') return 'bg-info'
-  return 'bg-base-content/40'
-}
-
-const projects = [
-  {
-    title: 'Solanam',
-    year: '2025',
-    category: 'Design Software',
-    status: 'Live',
-    description:
-      'Web-based design software — canvas workflows, asset tooling, and a product surface built for creators in the browser.',
-    highlights: ['In-browser design editor', 'Product-grade UX', 'Shipped at solanam.com'],
-    tags: ['Rust', 'Tauri', 'Nuxt', 'FastAPI', 'TypeScript', 'PWA'],
-    banner: '/images/projects/solanam.jpg',
-    bannerAlt: 'Solanam web based design software — banner',
-    logo: '/images/projects/solanam.png',
-    logoAlt: 'Solanam logo',
-    href: 'https://solanam.com',
-    accent: 'primary',
-    ctaLabel: 'solanam.com',
-  },
-  {
-    title: 'eSimTrip',
-    year: '2023',
-    category: 'Travel Services',
-    status: 'Live',
-    description:
-      'Full eSIM travel ecosystem — consumer storefronts, vendor consoles, and regional brands for local and global markets.',
-    highlights: [
-      'eSimTrip Ecosystem (.com · .ir · .me)',
-      'Vendor & Operator Platforms',
-      'Local & Global Product Lines',
-    ],
-    tags: ['Nuxt', 'Next', 'Laravel', 'APIs', 'Multi-Tenant'],
-    banner: '/images/projects/esimtrip.jpg',
-    bannerAlt: 'Esimtrip eSIM travel platform — banner',
-    logo: '/images/projects/esim-logo.png',
-    logoAlt: 'Esimtrip logo',
-    href: 'https://esimtrip.com',
-    accent: 'secondary',
-    ctaLabel: 'esimtrip.com',
-  },
-  {
-    title: 'Dev tooling & Open Source Projects',
-    year: 'Ongoing',
-    category: 'Open Source Projects',
-    status: 'Active',
-    description:
-      'Browser extensions, shared libraries, and upstream contributions — reusable pieces extracted from production builds.',
-    highlights: ['solaxnm extension & starters', 'Docs & algorithm contributions', 'GitHub-first delivery'],
-    tags: ['Rust-Tauri', 'Nuxt-Vue', 'PHP-Laravel', 'Python-FastAPI', 'WebAssembly-Zig', 'EVM-Solidity', 'Raku-Perl', 'TypeScript'],
-    banner: '/images/projects/alihd.jpg',
-    bannerAlt: 'Open source repositories and developer tooling — banner',
-    logo: '/favicon.ico',
-    logoAlt: 'Ali HD logo',
-    href: 'https://github.com/alihd-tech',
-    repo: 'https://github.com/alihd-tech',
-    accent: 'info',
-    ctaLabel: 'GitHub',
-  },
-]
 </script>
 
 <style scoped>
