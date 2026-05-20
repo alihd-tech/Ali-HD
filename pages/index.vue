@@ -43,27 +43,7 @@
                 </p>
               </div>
 
-              <nav
-                aria-label="Primary actions"
-                class="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center"
-              >
-                <a
-                  href="#projects"
-                  class="btn bg-primary text-primary-content btn-sm w-full gap-2 px-6 sm:w-auto"
-                  :title="`${heroCopy.primaryCta} — jump to featured projects`"
-                >
-                  <Icon name="fluent:folder-24-filled" width="18" height="18" aria-hidden="true" />
-                  {{ heroCopy.primaryCta }}
-                </a>
-                <a
-                  href="#stack"
-                  class="btn btn-ghost btn-sm w-full gap-1.5 border border-base-300/40 text-base-content/80 hover:border-primary/30 hover:bg-base-200/40 hover:text-primary sm:w-auto"
-                  :title="`${heroCopy.secondaryCta} — jump to principles and stack`"
-                >
-                  {{ heroCopy.secondaryCta }}
-                  <Icon name="fluent:arrow-right-24-regular" width="16" height="16" aria-hidden="true" />
-                </a>
-              </nav>
+              
             </div>
 
             <aside class="order-2 lg:col-span-5">

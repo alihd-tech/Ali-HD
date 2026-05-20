@@ -17,7 +17,7 @@ export const useAppStore = defineStore('app', {
     complexity: complexities[1] as Complexity,
     theme: 'dark' as string,
     colorAccent: 'primary' as ColorAccent,
-    nerd: false,
+    nerd: true,
     mobileMenuOpen: false,
   }),
 

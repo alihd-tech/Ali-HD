@@ -43,21 +43,17 @@
             >
               <div class="max-w-2xl space-y-4">
                 <div class="flex flex-wrap items-center gap-3">
-                  <p class="site-footer-eyebrow">Contact</p>
+                  <p class="site-footer-eyebrow">Creator</p>
                 </div>
                 <h2
                   id="footer-heading"
                   class="font-quicksand text-2xl font-bold tracking-tight text-base-content sm:text-3xl lg:text-[2rem]"
                 >
-                  Let&apos;s build something
-                  <span class="gradient-text">solid</span>
-                </h2>
-                <p
-                  class="max-w-xl text-sm leading-relaxed text-base-content/70 sm:text-base"
-                >
-                  Open to collaborations, product work, and thoughtful engineering roles.
-                  I usually reply within a few days.
-                </p>
+                  i Enjoy Good Software
+                  <br/> &
+                  <br/> Comfortable 
+                  <span class="gradient-text">Building It</span>
+                </h2> 
               </div> 
             </div>
           </header>

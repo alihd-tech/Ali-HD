@@ -4,16 +4,7 @@
     <div
       class="pointer-events-none absolute -inset-px bg-gradient-to-br from-primary/10 via-transparent to-secondary/5 opacity-70"
       aria-hidden="true"
-    />
-
-    <!-- Header / Status Section -->
-    <header class="relative mb-6 text-center">
-      <div class="mx-auto mb-2 flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 text-primary">
-        <Icon name="fluent:shield-lock-24-filled" class="h-5 w-5" />
-      </div>
-      <h2 class="text-sm font-semibold tracking-wide text-base-content">Enter Passcode</h2>
-      <p class="mt-0.5 text-xs text-base-content/50">Please enter your 4-digit security code</p>
-    </header>
+    /> 
 
     <!-- Passcode Display (Digit Indicators) -->
     <section class="relative mb-6" aria-label="Passcode entry display">
@@ -142,7 +133,7 @@ import { ref, computed, watch, nextTick, onBeforeUnmount } from 'vue'
 
 const emit = defineEmits(['code-complete', 'code-change'])
 
-const REVEAL_MESSAGE = 'See The Customizer now'
+const REVEAL_MESSAGE = 'You\'re a Curious One , Aren\'t You ?'
 const TYPEWRITER_MS = 42
 
 // Internal State

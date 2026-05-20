@@ -130,14 +130,7 @@
                 {{ modeLabel }}
               </p>
             </div>
-
-            <!-- CTA -->
-            <NuxtLink
-              to="/contact"
-              class="block rounded-2xl border-2 border-primary bg-primary px-6 py-4 text-center font-semibold text-primary-content transition-all hover:shadow-lg hover:shadow-primary/30"
-            >
-              Get in touch
-            </NuxtLink>
+ 
           </aside>
         </div>
       </div>
