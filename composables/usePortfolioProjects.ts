@@ -1,4 +1,4 @@
-import type { PortfolioProject } from '~/data/projects'
+import type { PortfolioProject } from '~/types/portfolio-project'
 
 export async function usePortfolioProjects() {
   const { data: projects } = await useAsyncData('portfolio-projects', () =>

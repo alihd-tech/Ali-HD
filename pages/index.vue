@@ -17,29 +17,34 @@
               :key="`hero-${activeHeroLevel}`"
               class="order-2 space-y-8 lg:order-1 lg:col-span-7"
             >
-              <header class="space-y-4 border-l-2 border-primary/50 pl-5 sm:pl-6">
-                <p class="text-[11px] font-semibold uppercase tracking-[0.24em] text-primary/90">
-                  {{ heroCopy.pillLabel }}
-                </p>
+              <header class="hero-heading space-y-6 sm:space-y-7">
+                <div class="hero-heading-meta flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4 sm:gap-y-2">
+                  <span class="hero-pill">{{ heroCopy.pillLabel }}</span>
+                  <span
+                    class="hidden h-3 w-px shrink-0 bg-base-300/50 sm:block"
+                    aria-hidden="true"
+                  />
+                  <p class="max-w-md text-sm leading-snug text-base-content/60">
+                    {{ heroCopy.eyebrow }}
+                  </p>
+                </div>
+
+                <h1 id="hero-heading" class="hero-title">
+                  <span class="hero-title-name">{{ heroCopy.headlineName }}</span>
+                  <span
+                    class="hero-title-rule"
+                    aria-hidden="true"
+                  />
+                  <span class="hero-title-accent">{{ heroCopy.headlineAccent }}</span>
+                </h1>
               </header>
 
               <div class="space-y-5">
-                <h1
-                  id="hero-heading"
-                  class="text-3xl leading-[1.05] tracking-tight sm:text-4xl md:text-[2.75rem] lg:text-[3.15rem]"
-                >
-                  <span class="block text-base-content font-ace">{{ heroCopy.headlineName }}</span>
-                  <span
-                    class="mt-1 block bg-gradient-to-r from-primary via-secondary/90 to-info bg-clip-text text-transparent text-xl"
-                  >
-                    {{ heroCopy.headlineAccent }}
-                  </span>
-                </h1>
                 <p class="font-quicksand text-lg font-semibold leading-snug text-base-content/90 sm:text-xl">
                   {{ heroCopy.subhead }}
                 </p>
                 <p class="max-w-xl text-base leading-relaxed text-base-content/75 md:text-[1.0625rem]">
-                  {{ heroCopy.body }}
+                  {{ heroCopy.intro }}
                 </p>
               </div>
 
@@ -210,25 +215,36 @@
                 Design software, travel platforms, and operator tooling — shipped end to end with live links.
               </p>
             </div>
+            <NuxtLink
+              to="/projects"
+              class="index-projects-all-link shrink-0 self-start text-sm font-semibold text-primary transition-colors hover:text-primary/80 md:self-end"
+              title="View all portfolio projects"
+            >
+              View all projects
+              <Icon name="fluent:arrow-right-16-regular" class="ms-1 inline-block h-4 w-4" aria-hidden="true" />
+            </NuxtLink>
           </header>
 
           <ul class="projects-grid m-0 list-none space-y-3 p-0 sm:grid sm:grid-cols-1 sm:gap-4 sm:space-y-0 lg:grid-cols-1 lg:gap-5">
             <li
               v-for="project in projects"
-              :key="project.title"
+              :key="project._path ?? project.title"
               class="min-w-0"
             >
               <article
                 class="index-project-card group relative flex h-full flex-col overflow-hidden rounded-2xl border border-base-300/40 bg-base-100/40 transition-[border-color,box-shadow,background-color] duration-300 hover:border-primary/25 hover:bg-base-100/55 hover:shadow-lg hover:shadow-primary/[0.07]"
                 :class="projectCardAccent(project.accent)"
               >
-                <div
+                <component
+                  :is="projectPageTo(project) ? 'NuxtLink' : 'div'"
                   v-if="project.banner"
-                  class="index-project-banner relative w-full overflow-hidden border-b border-base-300/20"
+                  v-bind="projectBannerLinkProps(project)"
+                  class="index-project-banner relative block w-full overflow-hidden border-b border-base-300/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/50"
                 >
                   <img
                     :src="project.banner"
                     :alt="projectBannerAlt(project)"
+                    :title="projectBannerTitle(project)"
                     class="index-project-thumb aspect-[16/9] h-auto w-full object-cover transition-[transform,filter] duration-700 ease-out group-hover:scale-[1.04] group-hover:saturate-110 sm:aspect-[2.35/1] md:aspect-[2.65/1]"
                     loading="lazy"
                     decoding="async"
@@ -251,6 +267,7 @@
                       v-if="project.logo"
                       :src="project.logo"
                       :alt="projectLogoAlt(project)"
+                      :title="projectLogoTitle(project)"
                       class="h-9 w-9 rounded-xl border border-base-300/40 bg-base-100/90 object-contain p-1 shadow-lg backdrop-blur-sm sm:h-10 sm:w-10"
                       width="40"
                       height="40"
@@ -264,7 +281,7 @@
                       {{ project.year }}
                     </time>
                   </div>
-                </div>
+                </component>
 
                 <div class="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
                 <header class="mb-2 flex items-start justify-between gap-2 sm:mb-2.5">
@@ -287,7 +304,15 @@
                       </span>
                     </div>
                     <h3 class="truncate font-quicksand text-base font-bold leading-tight text-base-content sm:text-[1.0625rem]">
-                      {{ project.title }}
+                      <NuxtLink
+                        v-if="projectPageTo(project)"
+                        :to="projectPageTo(project)!"
+                        class="text-inherit transition-colors hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/50"
+                        :title="projectDetailsLabel(project)"
+                      >
+                        {{ project.title }}
+                      </NuxtLink>
+                      <span v-else>{{ project.title }}</span>
                     </h3>
                   </div>
                   <time
@@ -347,6 +372,16 @@
                   </ul>
 
                   <div class="flex shrink-0 flex-wrap items-center gap-1.5 sm:justify-end">
+                    <NuxtLink
+                      v-if="projectPageTo(project)"
+                      :to="projectPageTo(project)!"
+                      class="btn btn-ghost btn-xs gap-1 px-2.5 min-h-7 h-7 text-base-content/75 hover:text-primary"
+                      :title="projectDetailsLabel(project)"
+                      :aria-label="projectDetailsLabel(project)"
+                    >
+                      <span>Details</span>
+                      <Icon name="fluent:document-24-regular" width="12" height="12" aria-hidden="true" />
+                    </NuxtLink>
                     <a
                       v-if="project.href"
                       :href="project.href"
@@ -371,7 +406,7 @@
                       <Icon name="ph:github-logo" width="14" height="14" aria-hidden="true" />
                     </a>
                     <span
-                      v-if="!project.href && !project.repo"
+                      v-if="!projectPageTo(project) && !project.href && !project.repo"
                       class="text-[11px] text-base-content/50"
                     >
                       Private / internal
@@ -395,17 +430,42 @@
 </template>
 
 <script setup lang="ts">
-import { type PortfolioProject } from '~/data/projects';
-import { projectCardAccent, projectIconClass, projectStatusClass, projectStatusDotClass, projectYearDatetime } from '~/data/projects';
+import type { PortfolioProject } from '~/types/portfolio-project'
 
-const { projects } = await usePortfolioProjects();
+const { projects } = await usePortfolioProjects()
+
+function projectPageTo(project: PortfolioProject) {
+  return project._path || null
+}
+
+function projectBannerLinkProps(project: PortfolioProject) {
+  const to = projectPageTo(project)
+  if (!to) return {}
+  return {
+    to,
+    title: projectDetailsLabel(project),
+    'aria-label': projectDetailsLabel(project),
+  }
+}
 
 function projectBannerAlt(project: PortfolioProject) {
   return project.bannerAlt ?? `${project.title} — project screenshot`
 }
 
+function projectBannerTitle(project: PortfolioProject) {
+  return project.bannerAlt ?? `${project.title} — featured project screenshot`
+}
+
 function projectLogoAlt(project: PortfolioProject) {
   return project.logoAlt ?? `${project.title} logo`
+}
+
+function projectLogoTitle(project: PortfolioProject) {
+  return project.logoAlt ?? `${project.title} — project logo`
+}
+
+function projectDetailsLabel(project: PortfolioProject) {
+  return `View ${project.title} project details`
 }
 
 function projectVisitLabel(project: PortfolioProject) {
@@ -434,8 +494,8 @@ onMounted(() => {
   }
 })
 
-const { heroCopy, activeHeroLevel } = useHeroContent()
-const { activeLevel, complexityLabel, sectionHeader, stackStories } = usePrinciplesStack()
+const { heroCopy, activeHeroLevel } = await useHeroContent()
+const { activeLevel, complexityLabel, sectionHeader, stackStories } = await usePrinciplesStack()
 const {
   ensureStructureLoaded,
   applyPersonalityToDocument,
@@ -530,6 +590,82 @@ function stackTagClass(accent = 'primary') {
   );
 }
 
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-primary) 92%, var(--fallback-bc, oklch(var(--bc))));
+  border: 1px solid color-mix(in srgb, var(--color-primary) 28%, transparent);
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--color-primary) 8%, transparent);
+}
+
+.hero-title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  max-width: 36rem;
+}
+
+.hero-title-name {
+  display: block;
+  font-family: 'Bruno Ace SC', monospace;
+  font-size: clamp(2.35rem, 6.5vw, 3.85rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--fallback-bc, oklch(var(--bc)));
+  text-wrap: balance;
+}
+
+.hero-title-rule {
+  display: block;
+  width: 3.25rem;
+  height: 3px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    90deg,
+    var(--color-primary, #ffac00),
+    color-mix(in srgb, var(--color-secondary, #a100fc) 85%, transparent),
+    color-mix(in srgb, var(--color-info, #3abff8) 70%, transparent)
+  );
+}
+
+.hero-title-accent {
+  display: block;
+  max-width: 28rem;
+  font-family: 'Quicksand', sans-serif;
+  font-size: clamp(1.35rem, 3.2vw, 1.9rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  background: linear-gradient(
+    105deg,
+    var(--color-primary, #ffac00) 0%,
+    color-mix(in srgb, var(--color-secondary, #a100fc) 88%, transparent) 48%,
+    color-mix(in srgb, var(--color-info, #3abff8) 85%, transparent) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-wrap: balance;
+}
+
+@media (min-width: 640px) {
+  .hero-title {
+    gap: 0.85rem;
+  }
+
+  .hero-title-rule {
+    width: 4.5rem;
+  }
+}
+
 .stack-card {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -568,9 +704,10 @@ function stackTagClass(accent = 'primary') {
   }
 }
 
-.index-contact-link:focus-visible {
+.index-projects-all-link:focus-visible {
   outline: 2px solid color-mix(in srgb, var(--color-primary) 50%, transparent);
   outline-offset: 2px;
+  border-radius: 0.25rem;
 }
 
 .hero-panel-swap-enter-active,

@@ -150,7 +150,7 @@ const breadcrumbItems: BreadcrumbItem[] = [
 ]
 
 const store = useAppStore()
-const { content, isNerd, modeLabel } = useAboutContent()
+const { content, isNerd, modeLabel } = await useAboutContent()
 
 const EXPERTISE_TITLE: Record<string, string> = {
   primary: 'text-primary',

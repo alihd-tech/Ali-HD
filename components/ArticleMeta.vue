@@ -20,17 +20,17 @@
     </span>
 
     <span
-      v-if="article.complexity"
+      v-if="article.variant"
       class="inline-flex rounded-full border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
-      :class="complexityBadgeClass(article.complexity)"
+      :class="variantBadgeClass(article.variant)"
     >
-      {{ article.complexity }}
+      {{ variantBadgeLabel(article.variant) }}
     </span>
   </div>
 </template>
 
 <script setup lang="ts">
-import { complexityBadgeClass, formatBlogDate, type BlogArticleMeta } from '~/composables/useBlogUi'
+import { formatBlogDate, variantBadgeClass, variantBadgeLabel, type BlogArticleMeta } from '~/composables/useBlogUi'
 
 withDefaults(
   defineProps<{

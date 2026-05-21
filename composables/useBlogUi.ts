@@ -1,7 +1,9 @@
+export type BlogVariantSlug = 'plain' | 'nerd'
+
 export interface BlogArticleMeta {
   date?: string
   readingTime?: number
-  complexity?: string
+  variant?: BlogVariantSlug
   title?: string
   description?: string
   tags?: string[]
@@ -13,10 +15,9 @@ export interface BlogArticleMeta {
   }
 }
 
-const COMPLEXITY_STYLES: Record<string, string> = {
-  simple: 'border-info/30 bg-info/10 text-info',
-  balanced: 'border-primary/30 bg-primary/10 text-primary',
-  advanced: 'border-secondary/30 bg-secondary/10 text-secondary',
+const VARIANT_STYLES: Record<BlogVariantSlug, string> = {
+  plain: 'border-info/30 bg-info/10 text-info',
+  nerd: 'border-secondary/30 bg-secondary/10 text-secondary',
 }
 
 const TAG_ACCENTS = [
@@ -34,9 +35,15 @@ export function formatBlogDate(date: string, style: 'short' | 'long' = 'short') 
   })
 }
 
-export function complexityBadgeClass(slug?: string) {
+export function variantBadgeClass(slug?: BlogVariantSlug) {
   if (!slug) return 'border-base-300/30 bg-base-200/30 text-base-content/70'
-  return COMPLEXITY_STYLES[slug] ?? COMPLEXITY_STYLES.balanced
+  return VARIANT_STYLES[slug]
+}
+
+export function variantBadgeLabel(slug?: BlogVariantSlug) {
+  if (slug === 'nerd') return 'Nerd mode'
+  if (slug === 'plain') return 'Plain English'
+  return ''
 }
 
 export function tagBadgeClass(index: number) {

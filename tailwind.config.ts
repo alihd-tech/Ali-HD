@@ -201,6 +201,15 @@ export default <Config>{
           'secondary-focus': '#7900bf',
         }
       },
+      {
+        light: {
+          ...require('daisyui/src/theming/themes')['emerald'],
+          primary: '#FFAC00',
+          'primary-focus': '#E69B00',
+          secondary: '#a100fc',
+          'secondary-focus': '#7900bf',
+        }
+      },
     ],
     base: true,
     styled: true,

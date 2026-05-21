@@ -38,9 +38,9 @@
                                 </div>
                             </div>
                             <p class="mt-4 text-sm leading-relaxed text-base-content/55">
-                                Depth matches your
-                                <span class="font-medium text-base-content/80">{{ store.complexity.title }}</span>
-                                setting — change it in the keypad on the home page.
+                                Tone follows
+                                <span class="font-medium text-base-content/80">{{ isNerd ? 'Nerd mode' : 'Plain English' }}</span>
+                                — toggle it on the About page.
                             </p>
                         </div>
                     </aside>
@@ -143,7 +143,7 @@
                         No articles yet
                     </h2>
                     <p class="mx-auto mt-2 max-w-sm text-base-content/55">
-                        New posts will show up here. Try a different complexity level on the home page keypad.
+                        New posts will show up here. Toggle Nerd mode on the About page to change how articles read.
                     </p>
                     <NuxtLink to="/"
                         class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary/80">
@@ -185,30 +185,16 @@
 
 <script setup lang="ts">
 import type { BreadcrumbItem } from '~/composables/useBreadcrumbSchema'
-import { articleCardHoverClass, type BlogArticleMeta } from '~/composables/useBlogUi'
+import { articleCardHoverClass } from '~/composables/useBlogUi'
 
 useHead({ title: 'Blog — Ali HD' })
-
-const store = useAppStore()
 
 const breadcrumbItems: BreadcrumbItem[] = [
     { label: 'Home', to: '/' },
     { label: 'Blog' },
 ]
 
-const { data: articles } = await useAsyncData('blog-articles', () =>
-    queryContent<BlogArticleMeta>('/blog')
-        .where({ complexity: { $in: [store.complexity.slug, undefined] } } as any)
-        .sort({ date: -1 })
-        .find(),
-)
-
-watch(() => store.complexity.slug, async () => {
-    articles.value = await queryContent<BlogArticleMeta>('/blog')
-        .where({ complexity: { $in: [store.complexity.slug, undefined] } } as any)
-        .sort({ date: -1 })
-        .find()
-})
+const { articles, isNerd } = await useBlogArticles()
 
 const featuredArticle = computed(() => articles.value?.[0])
 const remainingArticles = computed(() => articles.value?.slice(1) ?? [])

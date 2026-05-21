@@ -12,9 +12,9 @@ Personal portfolio for [Ali Heydari](https://alihd.ir) (Ali HD), full-stack engi
 ## Features
 
 - **Pages** — Home, About, and Projects (`pages/`). Navbar also links to Blog and Contact (routes not implemented yet).
-- **Projects** — Featured work from `content/projects/*.md` via Nuxt Content, with live links and accent styling helpers in `data/projects.ts`.
-- **Content** — Markdown in `content/` for about copy, project write-ups, and draft blog posts ([Nuxt Content](https://content.nuxt.com)).
-- **Complexity levels** — Simple / Balanced / Advanced adjust how much detail is shown (hero copy, principles stack, about panel, etc.).
+- **Projects** — Featured work from `content/projects/*.md` via Nuxt Content, with live links and accent styling helpers in `usePortfolioProjectUi`.
+- **Content** — Markdown in `content/` for site copy variants, project write-ups, and blog posts ([Nuxt Content](https://content.nuxt.com)).
+- **Complexity levels** — Simple / Balanced / Advanced adjust how much detail is shown (hero, principles stack, about panel, etc.) via `content/hero/`, `content/principles/`, and `content/about/` variant files.
 - **Theme customizer** — DaisyUI themes, accent color, optional “nerd” mode (Pinia + `CustomizerPanel`).
 - **PWA-ready** — `public/manifest.json`, theme color `#FFAC00`, and favicon / install icon assets wired in `nuxt.config.ts`.
 - **SEO** — Global meta, Open Graph, Twitter cards, and Person JSON-LD in `nuxt.config.ts`; breadcrumb structured data via `useBreadcrumbSchema`; static `public/sitemap.xml` and `public/robots.txt`.
@@ -36,12 +36,11 @@ Personal portfolio for [Ali Heydari](https://alihd.ir) (Ali HD), full-stack engi
 ```
 pages/              # Routes: index, about, projects
 components/         # UI (navbar, footer, keypad, customizer, drawer, …)
-composables/        # Hero copy, about content, personality, principles, breadcrumbs
+composables/        # Hero copy, about content, portfolio, personality, principles, breadcrumbs
 stores/             # App state (theme, complexity, accent, nerd mode)
-data/               # projects.ts — types and UI accent helpers
-content/            # Markdown (about.md, blog/, projects/)
+content/            # Markdown (hero/, principles/, about/, blog/, projects/)
 layouts/            # default.vue
-types/              # Complexity and nav types
+types/              # Complexity, nav, and portfolio project types
 nuxt.config.ts      # Modules, head/SEO, runtime config, fonts
 public/             # Static assets, PWA manifest, favicons, sitemap, robots.txt
 ```
@@ -70,7 +69,8 @@ npm run preview  # Preview production build locally
 
 ## Content
 
-- **About** — Long-form copy in `content/about.md`, loaded via `useAboutContent`.
+- **About** — Panel copy in `content/about/{simple,balanced,advanced}.md` via `useAboutContent` (nerd mode uses `advanced`); long-form philosophy in `content/about.md`.
+- **Hero & principles** — Three variants each in `content/hero/` and `content/principles/`, loaded by `useHeroContent` and `usePrinciplesStack` from the active complexity level.
 - **Projects** — One markdown file per entry in `content/projects/` (frontmatter for cards; body for optional long-form copy). Loaded with `usePortfolioProjects` and sorted by `order`.
 - **Blog** — Draft posts under `content/blog/`; add `pages/blog/` (and slug routes) when you want them live.
 - **Site-wide SEO** — Edit `nuxt.config.ts` `app.head` (meta, icons, JSON-LD). Update `public/sitemap.xml` when routes change.

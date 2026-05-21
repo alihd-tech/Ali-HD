@@ -113,7 +113,17 @@
                         {{ project.status }}
                       </span>
                     </div>
-                    <h3 class="font-quicksand text-xl font-bold text-base-content">
+                    <NuxtLink
+                      v-if="project._path"
+                      :to="project._path"
+                      class="font-quicksand text-xl font-bold text-base-content transition-colors hover:text-primary"
+                    >
+                      {{ project.title }}
+                    </NuxtLink>
+                    <h3
+                      v-else
+                      class="font-quicksand text-xl font-bold text-base-content"
+                    >
                       {{ project.title }}
                     </h3>
                   </div>
@@ -150,6 +160,14 @@
                 </div>
 
                 <div class="flex flex-wrap gap-3 border-t border-base-300/25 pt-4">
+                  <NuxtLink
+                    v-if="project._path"
+                    :to="project._path"
+                    class="rounded-lg border-2 border-base-300/40 px-4 py-2 text-center text-sm font-semibold text-base-content/80 transition-all hover:border-primary/40 hover:text-primary"
+                  >
+                    <Icon name="fluent:document-24-regular" class="me-1 inline" width="16" height="16" aria-hidden="true" />
+                    Details
+                  </NuxtLink>
                   <a
                     v-if="project.href"
                     :href="project.href"
@@ -216,16 +234,6 @@
 
 <script setup lang="ts">
 import type { BreadcrumbItem } from '~/composables/useBreadcrumbSchema'
-import {
-  projectBtnClass,
-  projectCardHover,
-  projectInitial,
-  projectLogoWrapClass,
-  projectStatusClass,
-  projectStatusDotClass,
-  projectTagClass,
-  projectYearDatetime,
-} from '~/data/projects'
 
 const { projects } = await usePortfolioProjects()
 

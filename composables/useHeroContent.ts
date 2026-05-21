@@ -1,46 +1,36 @@
-import { complexities } from '~/types'
+import type { HeroContentDoc, HeroCopy } from '~/types/site-content'
 
-export function useHeroContent() {
-  const store = useAppStore()
+const HERO_FALLBACK: HeroCopy = {
+  pillLabel: 'Full-Stack Engineer & Web Architect',
+  eyebrow: 'Product-focused engineering for the modern web',
+  headlineName: 'Ali HD',
+  headlineAccent: 'Design systems that endure',
+  subhead:
+    'Building fast, scalable interfaces and platforms that stay responsive as usage and complexity grow.',
+  intro: 'I design and engineer full-stack systems where performance, architecture, and user experience meet clean modern development.',
+  primaryCta: 'View Projects',
+  secondaryCta: 'See my approach',
+}
 
-  const heroVariants = {
-    simple: {
-      pillLabel: 'Full-Stack Engineer',
-      eyebrow: 'Building for the modern web',
-      headlineName: 'Ali HD',
-      headlineAccent: 'Ship fast, stay solid',
-      subhead: 'I build web platforms that scale.',
-      body: 'From database to pixel — performance, architecture, and UX in one stack.',
-      primaryCta: 'View Projects',
-      secondaryCta: 'See my approach',
-    },
-    balanced: {
-      pillLabel: 'Full-Stack Engineer & Web Architect',
-      eyebrow: 'Product-focused engineering for the modern web',
-      headlineName: 'Ali HD',
-      headlineAccent: 'Design systems that endure',
-      subhead: 'Building fast, scalable interfaces and platforms that stay responsive as usage and complexity grow.',
-      body: 'I design and engineer full-stack systems where performance, architecture, and user experience meet clean modern development. From Scala backends to Nuxt frontends — every layer matters.',
-      primaryCta: 'View Projects',
-      secondaryCta: 'See my approach',
-    },
-    advanced: {
-      pillLabel: 'Full-Stack Engineer & Web Architect',
-      eyebrow: 'Product-focused engineering for the modern web — from schema to pixel',
-      headlineName: 'Ali HD',
-      headlineAccent: 'Architect systems that scale under pressure',
-      subhead: 'Building fast, scalable interfaces and platforms designed to stay responsive as usage and complexity grow.',
-      body: 'I design and engineer full-stack systems where performance, architecture, and user experience meet clean modern development. My stack spans Scala and FastAPI for robust backends, Laravel for rapid iteration, and Nuxt/Vue with TypeScript for frontends that feel instant. I focus on the feedback loops that make products resilient under real-world conditions.',
-      primaryCta: 'View Projects',
-      secondaryCta: 'See my approach',
-    },
+function toHeroCopy(doc?: HeroContentDoc): HeroCopy {
+  if (!doc) return HERO_FALLBACK
+  return {
+    pillLabel: doc.pillLabel,
+    eyebrow: doc.eyebrow,
+    headlineName: doc.headlineName,
+    headlineAccent: doc.headlineAccent,
+    subhead: doc.subhead,
+    intro: doc.intro,
+    primaryCta: doc.primaryCta,
+    secondaryCta: doc.secondaryCta,
   }
+}
 
-  const heroCopy = computed(() => {
-    const slug = store.complexity.slug as keyof typeof heroVariants
-    return heroVariants[slug] || heroVariants.balanced
-  })
+export async function useHeroContent() {
+  const store = useAppStore()
+  const { pick } = await useContentVariants<HeroContentDoc>('hero-content', '/hero')
 
+  const heroCopy = computed(() => toHeroCopy(pick(store.complexity.slug)))
   const activeHeroLevel = computed(() => store.complexity.level)
 
   return { heroCopy, activeHeroLevel }

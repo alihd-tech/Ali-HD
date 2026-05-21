@@ -1,6 +1,6 @@
 <template>
   <div
-    class="marquee-fade-x marquee-block overflow-x-clip overflow-y-visible rounded-lg border border-base-300/20 bg-base-100/30 py-3 pb-12 sm:py-4 sm:pb-14 lg:rounded-xl lg:py-5 lg:pb-16"
+    class="marquee-fade-x marquee-block overflow-x-clip overflow-y-visible"
     aria-label="Technologies and tools"
   >
     <div class="marquee-track marquee-track-logos flex w-max items-center gap-3 px-2 sm:gap-4 lg:gap-5 lg:px-4">
