@@ -217,7 +217,6 @@
 <script setup lang="ts">
 import type { BreadcrumbItem } from '~/composables/useBreadcrumbSchema'
 import {
-  portfolioProjects as projects,
   projectBtnClass,
   projectCardHover,
   projectInitial,
@@ -227,6 +226,8 @@ import {
   projectTagClass,
   projectYearDatetime,
 } from '~/data/projects'
+
+const { projects } = await usePortfolioProjects()
 
 const breadcrumbItems: BreadcrumbItem[] = [
   { label: 'Home', to: '/' },

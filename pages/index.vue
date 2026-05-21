@@ -396,7 +396,9 @@
 
 <script setup lang="ts">
 import { type PortfolioProject } from '~/data/projects';
-import { portfolioProjects as projects, projectCardAccent, projectIconClass, projectStatusClass, projectStatusDotClass, projectYearDatetime } from '~/data/projects';
+import { projectCardAccent, projectIconClass, projectStatusClass, projectStatusDotClass, projectYearDatetime } from '~/data/projects';
+
+const { projects } = await usePortfolioProjects();
 
 function projectBannerAlt(project: PortfolioProject) {
   return project.bannerAlt ?? `${project.title} — project screenshot`

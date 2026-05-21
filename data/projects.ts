@@ -16,66 +16,8 @@ export interface PortfolioProject {
   repo?: string
   accent?: ProjectAccent
   ctaLabel?: string
+  order?: number
 }
-
-export const portfolioProjects: PortfolioProject[] = [
-  {
-    title: 'Solanam',
-    year: '2025',
-    category: 'Design Software',
-    status: 'Live',
-    description:
-      'Web-based design software — canvas workflows, asset tooling, and a product surface built for creators in the browser.',
-    highlights: ['In-browser design editor', 'Product-grade UX', 'Shipped at solanam.com'],
-    tags: ['Rust', 'Tauri', 'Nuxt', 'FastAPI', 'TypeScript', 'PWA'],
-    banner: '/images/projects/solanam.jpg',
-    bannerAlt: 'Solanam web based design software — banner',
-    logo: '/images/projects/solanam.png',
-    logoAlt: 'Solanam logo',
-    href: 'https://solanam.com',
-    accent: 'primary',
-    ctaLabel: 'solanam.com',
-  },
-  {
-    title: 'eSimTrip',
-    year: '2023',
-    category: 'Travel Services',
-    status: 'Live',
-    description:
-      'Full eSIM travel ecosystem — consumer storefronts, vendor consoles, and regional brands for local and global markets.',
-    highlights: [
-      'eSimTrip Ecosystem (.com · .ir · .me)',
-      'Vendor & Operator Platforms',
-      'Local & Global Product Lines',
-    ],
-    tags: ['Nuxt', 'Next', 'Laravel', 'APIs', 'Multi-Tenant'],
-    banner: '/images/projects/esimtrip.jpg',
-    bannerAlt: 'Esimtrip eSIM travel platform — banner',
-    logo: '/images/projects/esim-logo.png',
-    logoAlt: 'Esimtrip logo',
-    href: 'https://esimtrip.com',
-    accent: 'secondary',
-    ctaLabel: 'esimtrip.com',
-  },
-  {
-    title: 'Dev tooling & Open Source Projects',
-    year: 'Ongoing',
-    category: 'Open Source Projects',
-    status: 'Active',
-    description:
-      'Browser extensions, shared libraries, and upstream contributions — reusable pieces extracted from production builds.',
-    highlights: ['solaxnm extension & starters', 'Docs & algorithm contributions', 'GitHub-first delivery'],
-    tags: ['Rust-Tauri', 'Nuxt-Vue', 'PHP-Laravel', 'Python-FastAPI', 'WebAssembly-Zig', 'EVM-Solidity', 'Raku-Perl', 'TypeScript'],
-    banner: '/images/projects/alihd.jpg',
-    bannerAlt: 'Open source repositories and developer tooling — banner',
-    logo: '/favicon.ico',
-    logoAlt: 'Ali HD logo',
-    href: 'https://github.com/alihd-tech',
-    repo: 'https://github.com/alihd-tech',
-    accent: 'info',
-    ctaLabel: 'GitHub',
-  },
-]
 
 const ACCENT_BORDER: Record<string, string> = {
   primary: 'border-primary/60 hover:border-primary',

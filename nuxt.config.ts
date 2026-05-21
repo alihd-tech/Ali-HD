@@ -89,6 +89,7 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
         { rel: 'manifest', href: '/manifest.json' },
+        { rel: 'canonical', href: 'https://alihd.ir/' },
       ],
       script: [
         {
@@ -97,10 +98,21 @@ export default defineNuxtConfig({
             '@context': 'https://schema.org',
             '@graph': [
               {
+                '@type': 'WebSite',
+                '@id': 'https://alihd.ir/#website',
+                name: 'Ali HD',
+                alternateName: ['Ali Heydari', 'alihdir','alihddev','alihd-tech'],
+                url: 'https://alihd.ir/',
+                description:
+                  'Full-stack portfolio of Ali HD — product-focused engineering for fast, scalable web interfaces and platforms.',
+                inLanguage: 'en-US',
+                publisher: { '@id': 'https://alihd.ir/#person' },
+              },
+              {
                 '@type': 'Person',
                 '@id': 'https://alihd.ir/#person',
-                name: 'Ali Heydari',
-                alternateName: 'Ali HD',
+                name: 'Ali HD',
+                alternateName: ['Ali Heydari', 'alihdir','alihddev','alihd-tech'],
                 url: 'https://alihd.ir/',
                 image: 'https://alihd.ir/alihd.webp',
                 email: 'mailto:support@alihd.ir',
@@ -121,6 +133,22 @@ export default defineNuxtConfig({
                   'https://instagram.com/ali.hdii',
                   'https://t.me/lifelongcoder',
                 ],
+              },
+              {
+                '@type': 'ProfilePage',
+                '@id': 'https://alihd.ir/#profilepage',
+                url: 'https://alihd.ir/',
+                name: 'Ali HD | Full Stack Engineer & Web Architect',
+                description:
+                  'Designing and engineering full-stack systems where performance, architecture, and user experience meet clean modern development.',
+                isPartOf: { '@id': 'https://alihd.ir/#website' },
+                about: { '@id': 'https://alihd.ir/#person' },
+                mainEntity: {
+                  '@id': 'https://alihd.ir/#person',
+                  '@type': 'Person',
+                  name: 'Ali Heydari',
+                },
+                inLanguage: 'en-US',
               },
             ],
           }),
