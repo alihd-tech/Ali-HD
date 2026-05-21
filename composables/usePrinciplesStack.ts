@@ -5,25 +5,25 @@ const STACK_STORIES = [
     id: 'performance',
     icon: 'fluent:rocket-24-filled',
     accent: 'primary',
-    title: 'Performance',
+    title: 'Delivery Performance',
   },
   {
     id: 'architecture',
     icon: 'fluent:building-lighthouse-24-filled',
     accent: 'secondary',
-    title: 'Architecture',
+    title: 'Systems Architecture',
   },
   {
     id: 'ux',
     icon: 'fluent:cursor-hover-24-filled',
     accent: 'info',
-    title: 'User Experience',
+    title: 'Surface & Experience',
   },
   {
     id: 'fullstack',
     icon: 'fluent:layer-24-filled',
     accent: 'success',
-    title: 'Full-Stack',
+    title: 'Platform Cohesion',
   },
 ] as const
 
@@ -32,8 +32,9 @@ type StoryId = (typeof STACK_STORIES)[number]['id']
 const SECTION_FALLBACK: PrinciplesSectionHeader = {
   eyebrow: 'Principles',
   titleLead: 'How I ',
-  titleAccent: 'build',
-  intro: 'The balance I aim for across the stack—speed, structure, and experience.',
+  titleAccent: 'build platforms',
+  intro:
+    'Balance across delivery performance, systems architecture, surface quality, and full-stack cohesion—web infrastructure engineered to run as one system.',
 }
 
 function principlesLevel(level: number): 0 | 1 | 2 {

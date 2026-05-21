@@ -513,35 +513,35 @@ onMounted(async () => {
 })
 
 const STACK_CARD: Record<string, string> = {
-  primary: 'hover:border-primary/35 hover:shadow-lg hover:shadow-primary/[0.08]',
+  primary: 'hover:border-violet-500/35 hover:shadow-lg hover:shadow-violet-500/[0.08]',
   secondary: 'hover:border-secondary/35 hover:shadow-lg hover:shadow-secondary/[0.08]',
   info: 'hover:border-info/35 hover:shadow-lg hover:shadow-info/[0.08]',
   success: 'hover:border-success/35 hover:shadow-lg hover:shadow-success/[0.08]',
 }
 
 const STACK_GLOW: Record<string, string> = {
-  primary: 'bg-gradient-to-br from-primary/10 via-transparent to-transparent',
+  primary: 'bg-gradient-to-br from-violet-500/10 via-transparent to-transparent',
   secondary: 'bg-gradient-to-br from-secondary/10 via-transparent to-transparent',
   info: 'bg-gradient-to-br from-info/10 via-transparent to-transparent',
   success: 'bg-gradient-to-br from-success/10 via-transparent to-transparent',
 }
 
 const STACK_INDEX: Record<string, string> = {
-  primary: 'text-primary/[0.07]',
+  primary: 'text-violet-500/[0.07]',
   secondary: 'text-secondary/[0.07]',
   info: 'text-info/[0.07]',
   success: 'text-success/[0.07]',
 }
 
 const STACK_ICON_WRAP: Record<string, string> = {
-  primary: 'border-primary/25 from-primary/20 to-primary/5 text-primary',
+  primary: 'border-indigo-500/25 from-violet-500/20 to-violet-500/5 text-violet-500',
   secondary: 'border-secondary/25 from-secondary/20 to-secondary/5 text-secondary',
   info: 'border-info/25 from-info/20 to-info/5 text-info',
   success: 'border-success/25 from-success/20 to-success/5 text-success',
 }
 
 const STACK_TAG: Record<string, string> = {
-  primary: 'border-primary/20 bg-primary/10 text-primary group-hover:border-primary/30 group-hover:bg-primary/12',
+  primary: 'border-indigo-500/20 bg-primary/10 text-violet-500 group-hover:border-violet-500/30 group-hover:bg-violet-500/12',
   secondary: 'border-secondary/20 bg-secondary/10 text-secondary group-hover:border-secondary/30 group-hover:bg-secondary/12',
   info: 'border-info/20 bg-info/10 text-info group-hover:border-info/30 group-hover:bg-info/12',
   success: 'border-success/20 bg-success/10 text-success group-hover:border-success/30 group-hover:bg-success/12',

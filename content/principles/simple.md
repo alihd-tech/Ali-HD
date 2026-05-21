@@ -1,18 +1,18 @@
 ---
-eyebrow: Approach
+eyebrow: Platform approach
 titleLead: 'What I '
-titleAccent: focus on
-intro: Four pillars that guide how I design, build, and ship software.
+titleAccent: optimize for
+intro: Four pillars for scalable web infrastructure, API systems, and cohesive platform delivery.
 performance:
-  body: Stay fast under real traffic, not just in benchmarks.
+  body: Stay fast and predictable under real traffic—not just in local benchmarks.
   tags: []
 architecture:
-  body: Structure that handles growth without turning into a maze.
+  body: Structure that absorbs growth without turning into fragile, untouchable legacy.
   tags: []
 ux:
-  body: Interfaces that respect time, attention, and accessibility.
+  body: Delivery surfaces that respect time, accessibility, and trust at scale.
   tags: []
 fullstack:
-  body: Own the path from database schema to polished UI.
+  body: One platform from API and data layers through SSR surfaces and operations.
   tags: []
 ---

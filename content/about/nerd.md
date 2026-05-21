@@ -1,52 +1,46 @@
 ---
-heroTitle: 'Systems Engineer '
-heroTitleAccent: '& polyglot runtime wrangler'
-heroSubtitle: I optimize for p99 latency, bounded contexts, and type-safe contracts from Postgres through OpenAPI to the DOM. Five years shipping services that survive traffic spikes and schema migrations.
+heroTitle: 'Full Stack Engineer '
+heroTitleAccent: '| Platform Systems'
+heroSubtitle: Systems-oriented full stack engineering — bounded contexts, honest SSR metrics, API invariants, and deploy paths that survive schema change and traffic spikes without paging at 3am.
 bio:
-  - 'Based in Iran, I treat the stack as one system: schemas, services, caches, and UI contracts stay aligned. I like invariants enforced at compile time, observability that answers “why slow?” in one dashboard, and deploy paths that do not page me at 3am.'
-  - 'Typical week: http4s + tapir or FastAPI for core logic, Laravel when iteration speed wins, Nuxt/Vue with strict TypeScript on the surface. Postgres with tuned plans (PgBouncer), Redis with explicit invalidation, Docker locally and the same images in prod. If it is not measurable, it is not done.'
+  - Based in Iran, I treat the stack as one platform: crawlable SSR surfaces, API contracts, cache boundaries, auth/session semantics, and payment state machines stay aligned. I optimize for invariants you can test, observability that answers “why slow?” in one pass, and architectures boring enough to operate until profiling says otherwise.
+  - Delivery work sits in web infrastructure for commerce and travel — i18n-heavy catalogs, SEO-sensitive routing, orchestrated APIs, unified payment rails, and experimental architectures where the bottleneck is real. High-performance rendering meets transactional correctness and operational discipline; that is platform systems work, not tutorial scope.
 expertise:
-  - title: Backend & services
+  - title: SSR & web infrastructure
     accent: primary
-    body: Scala (http4s, tapir), FastAPI, Laravel. OpenAPI-first APIs, idempotent handlers, and services that degrade gracefully instead of falling over.
-  - title: Frontend & delivery
+    body: Hybrid rendering where it earns its keep — LCP and hydration kept honest under real networks, SEO and structured data as platform requirements, not marketing afterthoughts.
+  - title: API ecosystems & backend boundaries
     accent: secondary
-    body: Nuxt 3, Vue, TypeScript. Hybrid SSR/SPA where it helps, codegen from API specs, and bundles split so LCP stays honest under real networks.
-  - title: Data & ops
+    body: Contract-first APIs, idempotent handlers, session models that fail closed, and service boundaries that degrade gracefully instead of cascading.
+  - title: Payments & transactional core
     accent: info
-    body: PostgreSQL, Redis, Docker, K8s when needed. Migrations with zero-downtime patterns, cache keys you can reason about, and metrics that tie code changes to SLOs.
-  - title: Product under constraints
+    body: Orchestrated checkout — gateway abstraction, reconciliation hooks, ledger-friendly flows, and failure modes that do not strand customers mid-purchase.
+  - title: Operability & platform discipline
     accent: success
-    body: Ship vertical slices with feature flags, keep architecture boring where possible, and save cleverness for the bottlenecks profiling actually shows.
+    body: Migrations, cache keys, feature flags, and deployment flow chosen for zero-drama rollout; cleverness reserved for bottlenecks profiling and SLOs actually show.
 skills:
-  - label: Languages
+  - label: Delivery & SSR
     accent: primary
     items:
-      - TypeScript
-      - Scala
-      - Python
-      - PHP
-      - Rust
-      - Zig
-      - SQL
-  - label: Frameworks & runtimes
+      - SSR / hybrid rendering
+      - Core Web Vitals
+      - Hydration boundaries
+      - i18n & locale routing
+      - Structured data & SEO
+  - label: Backend & data plane
     accent: secondary
     items:
-      - Nuxt
-      - Vue
-      - http4s
-      - tapir
-      - FastAPI
-      - Laravel
-      - Nitro
-  - label: Infra & observability
+      - API contracts & versioning
+      - Backend architecture
+      - AuthN / AuthZ models
+      - PostgreSQL tuning
+      - Idempotency & sagas
+  - label: Platform & ops
     accent: info
     items:
-      - PostgreSQL
-      - Redis
-      - Docker
-      - OpenAPI
-      - PgBouncer
-      - Prometheus
-      - Linux
+      - Payment orchestration
+      - Webhook reliability
+      - CI/CD pipelines
+      - Feature flags
+      - SLOs & incident response
 ---

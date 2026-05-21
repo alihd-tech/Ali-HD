@@ -1,32 +1,30 @@
 ---
 eyebrow: Principles
 titleLead: 'How I '
-titleAccent: build
-intro: The balance I aim for across the stack—speed, structure, and experience.
+titleAccent: build platforms
+intro: Balance across delivery performance, systems architecture, surface quality, and full-stack cohesion—web infrastructure engineered to run as one system.
 performance:
-  body: Keep apps responsive as features grow: lean bundles, smart caching, and Core Web Vitals that reflect real users.
+  body: Tune SSR delivery, API paths, and caching for real users—honest Core Web Vitals, stable hydration, and responsiveness that holds as features and traffic grow.
   tags:
-    - Code splitting
-    - Caching
+    - SSR delivery
+    - Caching strategy
     - Core Web Vitals
 architecture:
-  body: Use clear boundaries—domains, events, and modules—so teams can change one part without breaking the rest.
+  body: Clear boundaries—contracts, domains, and service seams—so teams can evolve backend architecture, integrations, and deployment flow without cascading breakage.
   tags:
-    - Domain-driven design
-    - Event-driven
-    - Modular
+    - API contracts
+    - Bounded contexts
+    - Modular platforms
 ux:
-  body: Build accessible, progressively enhanced UIs with interactions that feel immediate, not sluggish.
+  body: Accessible, progressively enhanced surfaces where SEO, structured data, and interaction quality are platform requirements—not polish added at the end.
   tags:
-    - A11y
-    - Progressive enhancement
-    - Micro-interactions
+    - Accessibility
+    - SEO & crawlability
+    - Hydration stability
 fullstack:
-  body: 'Match each layer to its strength: Scala and FastAPI for core logic, Laravel for rapid delivery, Nuxt and TypeScript for sharp frontends.'
+  body: Align rendering, API ecosystems, payment infrastructure, auth, and operations so the stack behaves as one machine—not handoffs between disconnected layers.
   tags:
-    - Scala
-    - FastAPI
-    - Laravel
-    - Nuxt
-    - TypeScript
+    - Platform cohesion
+    - Payment orchestration
+    - Operational awareness
 ---

@@ -1,10 +1,10 @@
 ---
-pillLabel: Full-Stack Engineer & Web Architect
-eyebrow: Product-focused engineering for the modern web
+pillLabel: Full Stack Engineer
+eyebrow: Web Infrastructure & Platform Systems
 headlineName: Ali HD
-headlineAccent: Design systems that endure
-subhead: Building fast, scalable interfaces and platforms that stay responsive as usage and complexity grow.
-intro: I design and engineer full-stack systems where performance, architecture, and user experience meet clean modern development. From Scala backends to Nuxt frontends — every layer matters.
+headlineAccent: Systems that behave as one machine
+subhead: Specializing in scalable web infrastructure — SSR platforms, API ecosystems, payment rails, and deployment paths engineered as a single platform.
+intro: Platform- and systems-oriented full stack work: backend architecture, SSR delivery, API orchestration, and operational discipline so rendering, data, auth, and commerce stay aligned as complexity grows.
 primaryCta: View Projects
 secondaryCta: See my approach
 ---

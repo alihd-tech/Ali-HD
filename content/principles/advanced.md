@@ -1,36 +1,31 @@
 ---
 eyebrow: Engineering principles
 titleLead: 'How I '
-titleAccent: build in practice
-intro: Same four ideas, with more technical detail. Depth follows your complexity setting.
+titleAccent: run platforms in production
+intro: Same four pillars with systems and operational depth—how web infrastructure, backend architecture, and delivery surfaces stay aligned under load.
 performance:
-  body: 'Tune query plans (PgBouncer), cache with Redis and explicit invalidation from Scala services, and split routes in Nuxt. Targets: LCP under 1.2s, CLS under 0.05.'
+  body: Query plans, explicit cache invalidation, route-level delivery splits, and edge-aware SSR—metrics tied to LCP, CLS, and p99 latency, not vanity scores on staging hardware.
   tags:
-    - PgBouncer
-    - Redis
-    - Route rules
+    - p99 latency
+    - Cache invalidation
+    - Edge-aware SSR
     - Core Web Vitals
-    - Edge
 architecture:
-  body: Nitro modules with domain boundaries; OpenAPI from Scala tapir; generated TypeScript types so front and back stay aligned.
+  body: Contract-first APIs, bounded contexts, and session semantics that fail closed—shared invariants so SSR surfaces, orchestration layers, and transactional backends do not drift apart after deploy.
   tags:
-    - DDD
-    - Nitro modules
-    - OpenAPI codegen
-    - tapir / http4s
+    - Contract-first APIs
+    - Bounded contexts
+    - Fail-closed auth
 ux:
-  body: Hybrid SSR/SPA where it helps, WCAG 2.2 AA by default, and GSAP for feedback that does not jank the main thread.
+  body: Hybrid rendering only where it earns its keep, WCAG treated as default, and motion that does not starve the main thread—structured data and crawl paths owned by the platform, not marketing tickets.
   tags:
     - WCAG 2.2 AA
-    - SSR / SPA
-    - GSAP
+    - Hybrid rendering
+    - Structured data
 fullstack:
-  body: Scala and FastAPI for correctness-critical paths; Laravel for glue and fast iteration; Nuxt, Vue, and TypeScript for the experience layer.
+  body: Payment state machines, webhook reliability, schema migrations with zero-drama rollout, and observability that maps code changes to SLOs—platform systems engineering from crawl to checkout.
   tags:
-    - Scala
-    - FastAPI
-    - Laravel
-    - Nuxt
-    - gRPC
-    - Kafka
+    - Payment invariants
+    - Webhook reliability
+    - SLOs & observability
 ---

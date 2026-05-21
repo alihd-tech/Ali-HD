@@ -3,13 +3,13 @@ import type { AboutContent, AboutContentDoc } from '~/types/site-content'
 export type { AboutContent } from '~/types/site-content'
 
 const ABOUT_FALLBACK: AboutContent = {
-  heroTitle: 'Full-Stack Engineer ',
-  heroTitleAccent: '& Web Architect',
+  heroTitle: 'Full Stack Engineer ',
+  heroTitleAccent: '& Web Infrastructure Engineer',
   heroSubtitle:
-    'Building thoughtfully engineered systems where performance, architecture, and user experience align.',
+    'Full Stack Engineer specializing in scalable web infrastructure and platform systems — where backend architecture, SSR delivery, API ecosystems, and operations are designed to work together.',
   bio: [
-    "I'm a full-stack engineer based in Iran with a passion for building systems that scale.",
-    'My work spans backend services, frontend interfaces, and infrastructure — shipping production software with care for quality and reliability.',
+    'I am a systems-oriented full stack engineer based in Iran with five years shipping production platforms that carry real traffic, real payments, and real operational risk.',
+    'My strength is architectural cohesion — making SSR surfaces, backend APIs, payment infrastructure, auth, caching, and deployment paths behave as one machine instead of a pile of integrations.',
   ],
   expertise: [],
   skills: [],
