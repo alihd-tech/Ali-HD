@@ -21,12 +21,27 @@
                 </h1>
               </header>
 
-              <div class="space-y-5">
-                <p class="font-quicksand text-lg font-semibold leading-snug text-base-content/90 sm:text-xl">
-                  I can Build anything, so does the AI.<br/>
-                  I can Design anything, so does the AI.<br/>
-                  But Orchestration , That's My Thing !
-                </p> 
+              <div class="hero-taglines space-y-4 sm:space-y-5">
+                <div
+                  v-for="tagline in heroTaglines"
+                  :key="tagline.line"
+                  class="hero-tagline"
+                >
+                  <p class="font-quicksand text-lg font-semibold leading-snug text-base-content/90 sm:text-xl">
+                    {{ tagline.line }}
+                  </p>
+                  <ul
+                    v-if="isNerd"
+                    class="hero-tagline-details mt-2 space-y-0.5 pl-4 text-sm leading-relaxed text-base-content/60"
+                  >
+                    <li
+                      v-for="detail in tagline.details"
+                      :key="detail"
+                    >
+                      {{ detail }}
+                    </li>
+                  </ul>
+                </div>
               </div>
 
               
@@ -200,6 +215,33 @@
 <script setup lang="ts">
 import { articleCardHoverClass } from '~/composables/useBlogUi'
 
+const store = useAppStore()
+const isNerd = computed(() => store.nerd)
+
+const heroTaglines = [
+  {
+    line: 'I can Build anything, so does the AI.',
+    details: [
+      'Full-stack apps with Nuxt, Vue, and TypeScript',
+      'APIs, workers, and edge-ready backends',
+    ],
+  },
+  {
+    line: 'I can Design anything, so does the AI.',
+    details: [
+      'Design systems, tokens, and component libraries',
+      'Flows, accessibility, and interaction patterns',
+    ],
+  },
+  {
+    line: "But Orchestration — that's my thing.",
+    details: [
+      'Services, data, and deploy pipelines in sync',
+      'Human + AI workflows with clear ownership',
+    ],
+  },
+] as const
+
 const { articles } = await useBlogArticles()
 
 const featuredArticle = computed(() => articles.value?.[0])
@@ -270,6 +312,22 @@ function articleIndexLabel(index: number) {
     var(--color-primary, #ffac00),
     color-mix(in srgb, var(--color-primary, #a100fc) 85%, transparent)
   );
+}
+
+.hero-tagline-details {
+  list-style: none;
+}
+
+.hero-tagline-details li {
+  position: relative;
+  padding-left: 0.75rem;
+}
+
+.hero-tagline-details li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: color-mix(in srgb, var(--color-primary) 55%, var(--fallback-bc, oklch(var(--bc))));
 }
 
 .hero-title-accent {
