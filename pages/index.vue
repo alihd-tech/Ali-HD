@@ -26,10 +26,7 @@
                   I can Build anything, so does the AI.<br/>
                   I can Design anything, so does the AI.<br/>
                   But Orchestration , That's My Thing !
-                </p>
-                <p class="max-w-xl text-base leading-relaxed text-base-content/75 md:text-[1.0625rem]">
-                  So !
-                </p>
+                </p> 
               </div>
 
               
