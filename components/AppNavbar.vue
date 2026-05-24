@@ -78,7 +78,6 @@ const store = useAppStore()
 const navItems: NavItem[] = [
   { label: 'Home', href: '/', icon: 'ph:house-bold' },
   { label: 'About', href: '/about', icon: 'ph:user-bold' },
-  { label: 'Projects', href: '/projects', icon: 'ph:folder-bold' },
   { label: 'Blog', href: '/blog', icon: 'ph:article-bold' },
   { label: 'Contact', href: '/contact', icon: 'ph:envelope-bold' },
 ]

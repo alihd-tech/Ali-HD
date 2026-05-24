@@ -5,46 +5,30 @@
       <section
         aria-labelledby="hero-heading"
         class="hero-section relative overflow-hidden border-b border-base-300/25 pb-12 pt-16 sm:pb-14 sm:pt-12 md:pb-16 md:pt-14 lg:pb-20 lg:pt-16"
-      >
-        <div
-          class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_-20%,color-mix(in_srgb,var(--color-primary)_7%,transparent),transparent)]"
-          aria-hidden="true"
-        />
+      > 
 
         <div class="container relative z-10 mx-auto max-w-6xl px-4 pt-16 sm:px-6 sm:pt-10 lg:px-8">
           <div class="grid items-start gap-10 lg:grid-cols-12 lg:gap-12 xl:gap-14">
-            <div
-              :key="`hero-${activeHeroLevel}`"
-              class="order-2 space-y-8 lg:order-1 lg:col-span-7"
-            >
+            <div class="order-2 space-y-8 lg:order-1 lg:col-span-7">
               <header class="hero-heading space-y-6 sm:space-y-7">
                 <div class="hero-heading-meta flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4 sm:gap-y-2">
-                  <span class="hero-pill">{{ heroCopy.pillLabel }}</span>
-                  <span
-                    class="hidden h-3 w-px shrink-0 bg-base-300/50 sm:block"
-                    aria-hidden="true"
-                  />
-                  <p class="max-w-md text-sm leading-snug text-base-content/60">
-                    {{ heroCopy.eyebrow }}
-                  </p>
+                  <span class="hero-pill">Cross Stack Engineer</span> 
                 </div>
 
                 <h1 id="hero-heading" class="hero-title">
-                  <span class="hero-title-name">{{ heroCopy.headlineName }}</span>
-                  <span
-                    class="hero-title-rule"
-                    aria-hidden="true"
-                  />
-                  <span class="hero-title-accent">{{ heroCopy.headlineAccent }}</span>
+                  <span class="hero-title-name">Ali HD</span> 
+                  <span class="hero-title-accent">Building Systems Differently</span>
                 </h1>
               </header>
 
               <div class="space-y-5">
                 <p class="font-quicksand text-lg font-semibold leading-snug text-base-content/90 sm:text-xl">
-                  {{ heroCopy.subhead }}
+                  I can Build anything, so does the AI.<br/>
+                  I can Design anything, so does the AI.<br/>
+                  But Orchestration , That's My Thing !
                 </p>
                 <p class="max-w-xl text-base leading-relaxed text-base-content/75 md:text-[1.0625rem]">
-                  {{ heroCopy.intro }}
+                  So !
                 </p>
               </div>
 
@@ -52,36 +36,19 @@
             </div>
 
             <aside class="order-2 lg:col-span-5">
-              <Transition name="hero-panel-swap" mode="out-in">
-                <Keypad
-                  v-if="!showHeroCustomizer"
-                  key="keypad"
-                  @code-complete="unlockHeroCustomizer"
-                />
-                <div
-                  v-else
-                  key="customizer"
-                  class="hero-customizer-card relative max-w-sm mx-auto overflow-hidden rounded-2xl border-2 border-base-300 bg-base-100 p-5 shadow-xl sm:p-6"
-                >
-                  <div
-                    class="pointer-events-none absolute -inset-px bg-gradient-to-br from-primary/10 via-transparent to-secondary/5 opacity-70"
-                    aria-hidden="true"
-                  /> 
-      
-                  <UiCustomizerPanel class="relative" />
-                </div>
-              </Transition>
+              
+              <UiCustomizerPanel class="relative" />
             </aside>
           </div>
         </div>
       </section>
 
-      <!-- Principles / Stack -->
+      <!-- Blog -->
       <section
-        id="stack"
-        :key="`principles-${activeLevel}-${personalityKey}`"
-        aria-labelledby="stack-heading"
-        class="stack-section relative scroll-mt-20 overflow-hidden border-b border-base-300/25 py-12 sm:py-14 md:py-16 lg:py-20"
+        v-if="articles?.length"
+        id="blog"
+        aria-labelledby="blog-heading"
+        class="blog-section relative scroll-mt-20 overflow-hidden border-b border-base-300/25 py-12 sm:py-14 md:py-16 lg:py-20"
       >
         <div
           class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_55%_45%_at_0%_50%,color-mix(in_srgb,var(--color-primary)_6%,transparent),transparent),radial-gradient(ellipse_50%_40%_at_100%_80%,color-mix(in_srgb,var(--color-secondary)_5%,transparent),transparent)]"
@@ -92,336 +59,140 @@
           <header class="index-section-header mb-10 md:mb-12 lg:mb-14">
             <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div class="max-w-2xl space-y-3">
-                <p class="index-eyebrow">{{ sectionHeader.eyebrow }}</p>
+                <p class="index-eyebrow">Reading</p>
                 <h2
-                  id="stack-heading"
+                  id="blog-heading"
                   class="font-quicksand text-2xl font-bold tracking-tight text-base-content sm:text-3xl lg:text-[2rem]"
                 >
-                  {{ sectionHeader.titleLead }}
-                  <span class="text-primary">{{ sectionHeader.titleAccent }}</span>
+                  Engineering
+                  <span
+                    class="bg-gradient-to-r from-primary via-secondary to-info bg-clip-text text-transparent"
+                  >thoughts</span>
                 </h2>
                 <p class="text-base leading-relaxed text-base-content/70 md:text-[1.0625rem]">
-                  {{ sectionHeader.intro }}
+                  Architecture decisions, scaling systems, frontend patterns, and the philosophy behind
+                  shipping products.
                 </p>
               </div>
-              <div
-                class="flex shrink-0 items-center gap-3 rounded-full border border-base-300/35 bg-base-100/50 px-4 py-2 text-sm backdrop-blur-sm lg:self-end"
-                role="status"
+
+              <NuxtLink
+                to="/blog"
+                class="inline-flex shrink-0 items-center gap-2 self-start rounded-xl border border-base-300/40 bg-base-100/50 px-5 py-2.5 text-sm font-semibold text-base-content backdrop-blur transition-colors hover:border-primary/35 hover:text-primary lg:self-end"
               >
-                <span
-                  class="relative flex h-2 w-2"
-                  aria-hidden="true"
-                >
-                  <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/40 opacity-75" />
-                  <span class="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-                </span>
-                <span class="text-base-content/55">
-                  <span class="font-medium text-base-content/85">{{ complexityLabel }}</span>
-                  <span class="mx-1.5 text-base-content/25" aria-hidden="true">&middot;</span>
-                  Live depth
-                </span>
-              </div>
+                View all articles
+                <Icon name="fluent:arrow-right-24-regular" class="h-4 w-4" aria-hidden="true" />
+              </NuxtLink>
             </div>
           </header>
 
-          <div
-            class="stack-bento grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5"
-            role="list"
+          <article
+            v-if="featuredArticle"
+            class="group relative mb-10 overflow-hidden rounded-2xl border border-base-300/40 bg-base-100/50 backdrop-blur transition-all hover:border-primary/35 hover:shadow-xl hover:shadow-primary/[0.08] md:mb-12"
           >
+            <div
+              class="pointer-events-none absolute inset-0 bg-gradient-to-br from-primary/[0.06] via-transparent to-secondary/[0.04] opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              aria-hidden="true"
+            />
+            <NuxtLink :to="featuredArticle._path" class="relative block p-6 sm:p-8 md:p-10">
+              <div class="mb-4 flex flex-wrap items-center gap-2">
+                <span
+                  class="rounded-full border border-primary/30 bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-primary"
+                >
+                  Latest
+                </span>
+                <ArticleMeta :article="featuredArticle" date-style="short" />
+              </div>
+
+              <h3
+                class="font-quicksand text-2xl font-bold leading-snug text-base-content transition-colors group-hover:text-primary sm:text-3xl md:text-4xl"
+              >
+                {{ featuredArticle.title }}
+              </h3>
+
+              <p class="mt-4 max-w-3xl text-base leading-relaxed text-base-content/70 md:text-lg">
+                {{ featuredArticle.description }}
+              </p>
+
+              <ArticleTags
+                v-if="featuredArticle.tags?.length"
+                :tags="featuredArticle.tags"
+                class="mt-6"
+              />
+
+              <span class="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                Read article
+                <Icon
+                  name="fluent:arrow-right-24-regular"
+                  class="h-4 w-4 transition-transform group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
+              </span>
+            </NuxtLink>
+          </article>
+
+          <div
+            v-if="remainingArticles.length"
+            class="mb-8 flex items-end justify-between gap-4 border-b border-base-300/25 pb-4"
+          >
+            <h3 class="font-quicksand text-xl font-bold text-base-content sm:text-2xl">
+              More articles
+            </h3>
+            <span class="text-sm text-base-content/50">
+              {{ remainingArticles.length }} more
+            </span>
+          </div>
+
+          <div v-if="remainingArticles.length" class="grid gap-6 md:grid-cols-2">
             <article
-              v-for="(story, index) in stackStories"
-              :key="story.id"
-              role="listitem"
-              class="stack-card group relative flex min-h-[13.5rem] flex-col overflow-hidden rounded-2xl border border-base-300/35 bg-base-100/35 p-5 sm:min-h-[14.5rem] sm:p-6"
-              :class="stackCardClass(story.accent)"
+              v-for="(article, index) in remainingArticles"
+              :key="article._path"
+              class="blog-card group relative overflow-hidden rounded-2xl border border-base-300/40 bg-base-100/50 backdrop-blur transition-all"
+              :class="articleCardHoverClass(index)"
             >
               <span
-                class="stack-card-index pointer-events-none absolute -end-1 -top-3 select-none font-ace text-[4.5rem] font-bold leading-none tracking-tighter sm:text-[5.25rem]"
-                :class="stackIndexClass(story.accent)"
+                class="pointer-events-none absolute -end-1 -top-2 select-none font-ace text-[3.5rem] font-bold leading-none text-base-content/[0.04] sm:text-[4rem]"
                 aria-hidden="true"
               >
-                {{ stackIndexLabel(index) }}
+                {{ articleIndexLabel(index + 1) }}
               </span>
 
-              <div
-                class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                :class="stackGlowClass(story.accent)"
-                aria-hidden="true"
-              />
+              <NuxtLink :to="article._path" class="relative flex h-full flex-col p-6 sm:p-7">
+                <ArticleMeta :article="article" date-style="short" class="mb-4" />
 
-              <div class="relative flex items-start justify-between gap-3">
-                <div
-                  class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border bg-gradient-to-br shadow-sm transition-transform duration-500 group-hover:scale-105"
-                  :class="stackIconWrapClass(story.accent)"
-                  aria-hidden="true"
+                <h3
+                  class="font-quicksand text-xl font-bold leading-snug text-base-content transition-colors group-hover:text-primary"
                 >
-                  <Icon :name="story.icon || 'fluent:layer-24-filled'" class="h-5 w-5" />
-                </div> 
-              </div>
-
-              <div class="relative mt-5 flex flex-1 flex-col">
-                <h3 class="font-quicksand text-lg font-bold leading-snug text-base-content sm:text-xl">
-                  {{ story.title }}
+                  {{ article.title }}
                 </h3>
-                <p class="mt-2 flex-1 text-sm leading-relaxed text-base-content/72 sm:text-[0.9375rem]">
-                  {{ story.body }}
+
+                <p class="mt-3 flex-1 text-sm leading-relaxed text-base-content/70 line-clamp-3">
+                  {{ article.description }}
                 </p>
 
-                <ul
-                  v-if="story.tags?.length"
-                  class="mt-4 flex flex-wrap gap-1.5"
-                  :aria-label="`Topics for ${story.title}`"
-                >
-                  <li
-                    v-for="tag in story.tags"
-                    :key="tag"
-                  >
-                    <span
-                      class="inline-block rounded-full border px-2.5 py-0.5 text-[10px] font-medium leading-tight transition-colors duration-300"
-                      :class="stackTagClass(story.accent)"
-                    >
-                      {{ tag }}
-                    </span>
-                  </li>
-                </ul>
-              </div>
+                <ArticleTags
+                  v-if="article.tags?.length"
+                  :tags="article.tags"
+                  :max="3"
+                  class="mt-5"
+                />
 
-              <div
-                class="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-base-300/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                aria-hidden="true"
-              />
+                <div class="mt-5 flex items-center justify-between border-t border-base-300/25 pt-4">
+                  <span
+                    class="text-sm font-medium text-base-content/50 transition-colors group-hover:text-primary"
+                  >
+                    Read more
+                  </span>
+                  <Icon
+                    name="fluent:arrow-right-24-regular"
+                    class="h-5 w-5 text-base-content/25 transition-all group-hover:translate-x-0.5 group-hover:text-primary"
+                    aria-hidden="true"
+                  />
+                </div>
+              </NuxtLink>
             </article>
           </div>
         </div>
       </section>
-
-      <!-- Projects -->
-      <section
-        id="projects"
-        aria-labelledby="projects-heading"
-        class="relative scroll-mt-20 border-b border-base-300/25 py-12 sm:py-14 md:py-16 lg:py-20"
-      >
-        <div class="container relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <header class="index-section-header mb-8 flex flex-col gap-4 sm:mb-9 md:flex-row md:items-end md:justify-between">
-            <div class="max-w-xl space-y-3">
-              <p class="index-eyebrow">Portfolio</p>
-              <h2
-                id="projects-heading"
-                class="font-quicksand text-2xl font-bold tracking-tight text-base-content sm:text-3xl"
-              >
-                Featured <span class="text-primary">projects</span>
-              </h2>
-              <p class="text-base leading-relaxed text-base-content/70">
-                Design software, travel platforms, and operator tooling — shipped end to end with live links.
-              </p>
-            </div>
-            <NuxtLink
-              to="/projects"
-              class="index-projects-all-link shrink-0 self-start text-sm font-semibold text-primary transition-colors hover:text-primary/80 md:self-end"
-              title="View all portfolio projects"
-            >
-              View all projects
-              <Icon name="fluent:arrow-right-16-regular" class="ms-1 inline-block h-4 w-4" aria-hidden="true" />
-            </NuxtLink>
-          </header>
-
-          <ul class="projects-grid m-0 list-none space-y-3 p-0 sm:grid sm:grid-cols-1 sm:gap-4 sm:space-y-0 lg:grid-cols-1 lg:gap-5">
-            <li
-              v-for="project in projects"
-              :key="project._path ?? project.title"
-              class="min-w-0"
-            >
-              <article
-                class="index-project-card group relative flex h-full flex-col overflow-hidden rounded-2xl border border-base-300/40 bg-base-100/40 transition-[border-color,box-shadow,background-color] duration-300 hover:border-primary/25 hover:bg-base-100/55 hover:shadow-lg hover:shadow-primary/[0.07]"
-                :class="projectCardAccent(project.accent)"
-              >
-                <component
-                  :is="projectPageTo(project) ? 'NuxtLink' : 'div'"
-                  v-if="project.banner"
-                  v-bind="projectBannerLinkProps(project)"
-                  class="index-project-banner relative block w-full overflow-hidden border-b border-base-300/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/50"
-                >
-                  <img
-                    :src="project.banner"
-                    :alt="projectBannerAlt(project)"
-                    :title="projectBannerTitle(project)"
-                    class="index-project-thumb aspect-[16/9] h-auto w-full object-cover transition-[transform,filter] duration-700 ease-out group-hover:scale-[1.04] group-hover:saturate-110 sm:aspect-[2.35/1] md:aspect-[2.65/1]"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div
-                    class="pointer-events-none absolute inset-0 bg-gradient-to-t from-base-100 via-base-100/25 to-base-100/5"
-                    aria-hidden="true"
-                  />
-                  <div
-                    class="index-project-banner-accent pointer-events-none absolute inset-0 opacity-60 transition-opacity duration-500 group-hover:opacity-100"
-                    :class="projectCardAccent(project.accent)"
-                    aria-hidden="true"
-                  />
-                  <div
-                    class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-base-content/[0.06]"
-                    aria-hidden="true"
-                  />
-                  <div class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-3 sm:p-4">
-                    <img
-                      v-if="project.logo"
-                      :src="project.logo"
-                      :alt="projectLogoAlt(project)"
-                      :title="projectLogoTitle(project)"
-                      class="h-9 w-9 rounded-xl border border-base-300/40 bg-base-100/90 object-contain p-1 shadow-lg backdrop-blur-sm sm:h-10 sm:w-10"
-                      width="40"
-                      height="40"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <time
-                      class="ms-auto rounded-lg border border-base-300/35 bg-base-100/80 px-2 py-1 text-[11px] font-semibold tabular-nums text-base-content/70 shadow-sm backdrop-blur-sm"
-                      :datetime="projectYearDatetime(project.year)"
-                    >
-                      {{ project.year }}
-                    </time>
-                  </div>
-                </component>
-
-                <div class="flex min-w-0 flex-1 flex-col p-4 sm:p-5">
-                <header class="mb-2 flex items-start justify-between gap-2 sm:mb-2.5">
-                  <div class="min-w-0 space-y-1">
-                    <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
-                      <p class="text-[10px] font-semibold uppercase tracking-[0.14em] text-base-content/50">
-                        {{ project.category }}
-                      </p>
-                      <span
-                        v-if="project.status"
-                        class="inline-flex items-center gap-1 rounded-full border px-1.5 py-px text-[10px] font-medium leading-tight"
-                        :class="projectStatusClass(project.status)"
-                      >
-                        <span
-                          class="h-1 w-1 shrink-0 rounded-full"
-                          :class="projectStatusDotClass(project.status)"
-                          aria-hidden="true"
-                        />
-                        {{ project.status }}
-                      </span>
-                    </div>
-                    <h3 class="truncate font-quicksand text-base font-bold leading-tight text-base-content sm:text-[1.0625rem]">
-                      <NuxtLink
-                        v-if="projectPageTo(project)"
-                        :to="projectPageTo(project)!"
-                        class="text-inherit transition-colors hover:text-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary/50"
-                        :title="projectDetailsLabel(project)"
-                      >
-                        {{ project.title }}
-                      </NuxtLink>
-                      <span v-else>{{ project.title }}</span>
-                    </h3>
-                  </div>
-                  <time
-                    class="shrink-0 pt-0.5 text-[11px] font-medium tabular-nums text-base-content/45"
-                    :datetime="projectYearDatetime(project.year)"
-                  >
-                    {{ project.year }}
-                  </time>
-                </header>
-
-                <p class="mb-2 line-clamp-2 text-xs leading-relaxed text-base-content/72 sm:text-[0.8125rem]">
-                  {{ project.description }}
-                </p>
-
-                <ul
-                  v-if="project.highlights?.length"
-                  class="mb-2.5 grid gap-0.5 sm:grid-cols-2 sm:gap-x-3 sm:gap-y-0.5"
-                  :aria-label="`Highlights for ${project.title}`"
-                >
-                  <li
-                    v-for="highlight in project.highlights"
-                    :key="highlight"
-                    class="flex min-w-0 items-start gap-1.5 text-[11px] leading-snug text-base-content/62 sm:text-xs"
-                  >
-                    <Icon
-                      name="fluent:checkmark-circle-12-filled"
-                      class="mt-px h-3 w-3 shrink-0 opacity-70"
-                      :class="projectIconClass(project.accent)"
-                      aria-hidden="true"
-                    />
-                    <span class="line-clamp-2">{{ highlight }}</span>
-                  </li>
-                </ul>
-
-                <footer class="mt-auto flex flex-col gap-2.5 border-t border-base-300/20 pt-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
-                  <ul
-                    v-if="project.tags?.length"
-                    class="m-0 flex min-w-0 list-none flex-wrap gap-1 p-0"
-                    aria-label="Technologies"
-                  >
-                    <li
-                      v-for="tag in project.tags.slice(0, 5)"
-                      :key="tag"
-                    >
-                      <span class="index-project-tag inline-block max-w-[8.5rem] truncate rounded-md border border-base-300/35 bg-base-200/35 px-1.5 py-px text-[10px] font-medium text-base-content/58">
-                        {{ tag }}
-                      </span>
-                    </li>
-                    <li v-if="project.tags.length > 5">
-                      <span
-                        class="inline-block rounded-md border border-dashed border-base-300/40 px-1.5 py-px text-[10px] font-medium text-base-content/45"
-                        :title="project.tags.slice(5).join(', ')"
-                      >
-                        +{{ project.tags.length - 5 }}
-                      </span>
-                    </li>
-                  </ul>
-
-                  <div class="flex shrink-0 flex-wrap items-center gap-1.5 sm:justify-end">
-                    <NuxtLink
-                      v-if="projectPageTo(project)"
-                      :to="projectPageTo(project)!"
-                      class="btn btn-ghost btn-xs gap-1 px-2.5 min-h-7 h-7 text-base-content/75 hover:text-primary"
-                      :title="projectDetailsLabel(project)"
-                      :aria-label="projectDetailsLabel(project)"
-                    >
-                      <span>Details</span>
-                      <Icon name="fluent:document-24-regular" width="12" height="12" aria-hidden="true" />
-                    </NuxtLink>
-                    <a
-                      v-if="project.href"
-                      :href="project.href"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="btn btn-primary btn-xs gap-1 px-2.5 min-h-7 h-7"
-                      :aria-label="projectVisitLabel(project)"
-                      :title="projectVisitLabel(project)"
-                    >
-                      <span class="max-w-[6.5rem] truncate sm:max-w-none">{{ project.ctaLabel || 'Open' }}</span>
-                      <Icon name="fluent:open-24-regular" width="12" height="12" aria-hidden="true" />
-                    </a>
-                    <a
-                      v-if="project.repo && project.repo !== project.href"
-                      :href="project.repo"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="btn btn-ghost btn-xs min-h-7 h-7 w-7 px-0 text-base-content/65 hover:text-primary"
-                      :aria-label="projectGitHubLabel(project)"
-                      :title="projectGitHubLabel(project)"
-                    >
-                      <Icon name="ph:github-logo" width="14" height="14" aria-hidden="true" />
-                    </a>
-                    <span
-                      v-if="!projectPageTo(project) && !project.href && !project.repo"
-                      class="text-[11px] text-base-content/50"
-                    >
-                      Private / internal
-                    </span>
-                  </div>
-                </footer>
-              </div>
-            </article>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- Tech strip -->
-      <TechLogoMarquee />
 
       <!-- Footer -->
       <AppFooter />
@@ -430,147 +201,16 @@
 </template>
 
 <script setup lang="ts">
-import type { PortfolioProject } from '~/types/portfolio-project'
+import { articleCardHoverClass } from '~/composables/useBlogUi'
 
-const { projects } = await usePortfolioProjects()
+const { articles } = await useBlogArticles()
 
-function projectPageTo(project: PortfolioProject) {
-  return project._path || null
-}
+const featuredArticle = computed(() => articles.value?.[0])
+const remainingArticles = computed(() => articles.value?.slice(1) ?? [])
 
-function projectBannerLinkProps(project: PortfolioProject) {
-  const to = projectPageTo(project)
-  if (!to) return {}
-  return {
-    to,
-    title: projectDetailsLabel(project),
-    'aria-label': projectDetailsLabel(project),
-  }
-}
-
-function projectBannerAlt(project: PortfolioProject) {
-  return project.bannerAlt ?? `${project.title} — project screenshot`
-}
-
-function projectBannerTitle(project: PortfolioProject) {
-  return project.bannerAlt ?? `${project.title} — featured project screenshot`
-}
-
-function projectLogoAlt(project: PortfolioProject) {
-  return project.logoAlt ?? `${project.title} logo`
-}
-
-function projectLogoTitle(project: PortfolioProject) {
-  return project.logoAlt ?? `${project.title} — project logo`
-}
-
-function projectDetailsLabel(project: PortfolioProject) {
-  return `View ${project.title} project details`
-}
-
-function projectVisitLabel(project: PortfolioProject) {
-  const action = project.ctaLabel || 'Open'
-  return `${action} ${project.title} (opens in new tab)`
-}
-
-function projectGitHubLabel(project: PortfolioProject) {
-  return `View ${project.title} on GitHub (opens in new tab)`
-}
-
-const KEYPAD_UNLOCKED_KEY = 'alihd-keypad-unlocked'
-
-const showHeroCustomizer = ref(false)
-
-function unlockHeroCustomizer() {
-  showHeroCustomizer.value = true
-  if (import.meta.client) {
-    localStorage.setItem(KEYPAD_UNLOCKED_KEY, '1')
-  }
-}
-
-onMounted(() => {
-  if (localStorage.getItem(KEYPAD_UNLOCKED_KEY) === '1') {
-    showHeroCustomizer.value = true
-  }
-})
-
-const { heroCopy, activeHeroLevel } = await useHeroContent()
-const { activeLevel, complexityLabel, sectionHeader, stackStories } = await usePrinciplesStack()
-const {
-  ensureStructureLoaded,
-  applyPersonalityToDocument,
-  isNerd,
-  selectedComplexityId,
-} = usePersonality()
-
-const personalityKey = computed(
-  () => `${selectedComplexityId.value ?? 'complexity'}:${isNerd.value ? 'nerd' : 'plain'}`,
-)
-
-onMounted(async () => {
-  await ensureStructureLoaded()
-  applyPersonalityToDocument()
-})
-
-const STACK_CARD: Record<string, string> = {
-  primary: 'hover:border-violet-500/35 hover:shadow-lg hover:shadow-violet-500/[0.08]',
-  secondary: 'hover:border-secondary/35 hover:shadow-lg hover:shadow-secondary/[0.08]',
-  info: 'hover:border-info/35 hover:shadow-lg hover:shadow-info/[0.08]',
-  success: 'hover:border-success/35 hover:shadow-lg hover:shadow-success/[0.08]',
-}
-
-const STACK_GLOW: Record<string, string> = {
-  primary: 'bg-gradient-to-br from-violet-500/10 via-transparent to-transparent',
-  secondary: 'bg-gradient-to-br from-secondary/10 via-transparent to-transparent',
-  info: 'bg-gradient-to-br from-info/10 via-transparent to-transparent',
-  success: 'bg-gradient-to-br from-success/10 via-transparent to-transparent',
-}
-
-const STACK_INDEX: Record<string, string> = {
-  primary: 'text-violet-500/[0.07]',
-  secondary: 'text-secondary/[0.07]',
-  info: 'text-info/[0.07]',
-  success: 'text-success/[0.07]',
-}
-
-const STACK_ICON_WRAP: Record<string, string> = {
-  primary: 'border-indigo-500/25 from-violet-500/20 to-violet-500/5 text-violet-500',
-  secondary: 'border-secondary/25 from-secondary/20 to-secondary/5 text-secondary',
-  info: 'border-info/25 from-info/20 to-info/5 text-info',
-  success: 'border-success/25 from-success/20 to-success/5 text-success',
-}
-
-const STACK_TAG: Record<string, string> = {
-  primary: 'border-indigo-500/20 bg-primary/10 text-violet-500 group-hover:border-violet-500/30 group-hover:bg-violet-500/12',
-  secondary: 'border-secondary/20 bg-secondary/10 text-secondary group-hover:border-secondary/30 group-hover:bg-secondary/12',
-  info: 'border-info/20 bg-info/10 text-info group-hover:border-info/30 group-hover:bg-info/12',
-  success: 'border-success/20 bg-success/10 text-success group-hover:border-success/30 group-hover:bg-success/12',
-}
-
-function stackIndexLabel(index: number) {
+function articleIndexLabel(index: number) {
   return String(index + 1).padStart(2, '0')
 }
-
-function stackCardClass(accent = 'primary') {
-  return STACK_CARD[accent] ?? STACK_CARD.primary
-}
-
-function stackGlowClass(accent = 'primary') {
-  return STACK_GLOW[accent] ?? STACK_GLOW.primary
-}
-
-function stackIndexClass(accent = 'primary') {
-  return STACK_INDEX[accent] ?? STACK_INDEX.primary
-}
-
-function stackIconWrapClass(accent = 'primary') {
-  return STACK_ICON_WRAP[accent] ?? STACK_ICON_WRAP.primary
-}
-
-function stackTagClass(accent = 'primary') {
-  return STACK_TAG[accent] ?? STACK_TAG.primary
-}
-
 </script>
 
 <style scoped>
@@ -619,7 +259,7 @@ function stackTagClass(accent = 'primary') {
   font-weight: 400;
   line-height: 0.95;
   letter-spacing: -0.02em;
-  color: var(--fallback-bc, oklch(var(--bc)));
+  color: var(--color-primary);
   text-wrap: balance;
 }
 
@@ -631,8 +271,7 @@ function stackTagClass(accent = 'primary') {
   background: linear-gradient(
     90deg,
     var(--color-primary, #ffac00),
-    color-mix(in srgb, var(--color-secondary, #a100fc) 85%, transparent),
-    color-mix(in srgb, var(--color-info, #3abff8) 70%, transparent)
+    color-mix(in srgb, var(--color-primary, #a100fc) 85%, transparent)
   );
 }
 
@@ -644,12 +283,7 @@ function stackTagClass(accent = 'primary') {
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.015em;
-  background: linear-gradient(
-    105deg,
-    var(--color-primary, #ffac00) 0%,
-    color-mix(in srgb, var(--color-secondary, #a100fc) 88%, transparent) 48%,
-    color-mix(in srgb, var(--color-info, #3abff8) 85%, transparent) 100%
-  );
+  background: var(--color-primary, #ffac00);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -666,76 +300,23 @@ function stackTagClass(accent = 'primary') {
   }
 }
 
-.stack-card {
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+.blog-card {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   transition:
     border-color 0.35s ease,
     box-shadow 0.35s ease,
-    background-color 0.35s ease,
     transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.stack-card:hover {
+.blog-card:hover {
   transform: translateY(-2px);
 }
 
-.stack-card-index {
-  font-variant-numeric: tabular-nums;
-}
-
-.index-project-card {
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-
-.index-project-card {
-  min-height: 0;
-}
-
-@media (min-width: 640px) {
-  .index-project-card > div:first-child {
-    align-self: stretch;
-    min-height: 7.75rem;
-  }
-
-  .index-project-thumb {
-    min-height: 100%;
-  }
-}
-
-.index-projects-all-link:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--color-primary) 50%, transparent);
-  outline-offset: 2px;
-  border-radius: 0.25rem;
-}
-
-.hero-panel-swap-enter-active,
-.hero-panel-swap-leave-active {
-  transition:
-    opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.hero-panel-swap-enter-from,
-.hero-panel-swap-leave-to {
-  opacity: 0;
-  transform: translateY(10px) scale(0.98);
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .stack-card,
-  .stack-card:hover {
+  .blog-card,
+  .blog-card:hover {
     transform: none;
-    transition: none;
-  }
-
-  .index-project-thumb {
-    transition: none;
-  }
-
-  .hero-panel-swap-enter-active,
-  .hero-panel-swap-leave-active {
     transition: none;
   }
 }

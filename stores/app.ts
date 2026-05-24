@@ -1,6 +1,39 @@
 import { defineStore } from 'pinia'
 import { complexities, type Complexity } from '~/types'
 
+export type AppTheme = 'dark' | 'light' | 'nord' | 'black' | 'night' | 'cupcake'
+
+export interface ThemeOption {
+  slug: AppTheme
+  label: string
+  description: string
+  isDark: boolean
+}
+
+/** DaisyUI themes configured in tailwind.config.ts */
+export const themes: ThemeOption[] = [
+  {
+    slug: 'dark',
+    label: 'Dark',
+    description: 'Forest-inspired dark palette',
+    isDark: true,
+  },
+  {
+    slug: 'light',
+    label: 'Light',
+    description: 'Emerald-tinted light mode',
+    isDark: false,
+  }, 
+  {
+    slug: 'night',
+    label: 'Night',
+    description: 'Deep blue night sky',
+    isDark: true,
+  }, 
+]
+
+export const themeSlugs = themes.map(t => t.slug)
+
 export type ColorAccent = 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error'
 
 export const colorAccentMap: Record<ColorAccent, { label: string; cssClass: string; hex: string }> = {
@@ -15,7 +48,7 @@ export const colorAccentMap: Record<ColorAccent, { label: string; cssClass: stri
 export const useAppStore = defineStore('app', {
   state: () => ({
     complexity: complexities[1] as Complexity,
-    theme: 'dark' as string,
+    theme: 'dark' as AppTheme,
     colorAccent: 'primary' as ColorAccent,
     nerd: true,
     mobileMenuOpen: false,
@@ -33,15 +66,17 @@ export const useAppStore = defineStore('app', {
     },
 
     setTheme(theme: string) {
-      this.theme = theme
+      const found = themes.find(t => t.slug === theme)
+      if (!found) return
+      this.theme = found.slug
       if (import.meta.client) {
-        document.documentElement.setAttribute('data-theme', theme)
-        localStorage.setItem('alihd-theme', theme)
+        document.documentElement.setAttribute('data-theme', found.slug)
+        localStorage.setItem('alihd-theme', found.slug)
       }
     },
 
     toggleTheme() {
-      this.setTheme(this.theme === 'dark' ? 'light' : 'dark')
+      this.setTheme(this.isDark ? 'light' : 'dark')
     },
 
     setColorAccent(accent: ColorAccent) {
@@ -64,7 +99,7 @@ export const useAppStore = defineStore('app', {
     initTheme() {
       if (import.meta.client) {
         const savedTheme = localStorage.getItem('alihd-theme')
-        if (savedTheme) {
+        if (savedTheme && themeSlugs.includes(savedTheme as AppTheme)) {
           this.setTheme(savedTheme)
         } else {
           const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -96,7 +131,8 @@ export const useAppStore = defineStore('app', {
   },
 
   getters: {
-    isDark: (state) => state.theme === 'dark',
+    isDark: (state) => themes.find(t => t.slug === state.theme)?.isDark ?? true,
+    themeConfig: (state) => themes.find(t => t.slug === state.theme) ?? themes[0],
     complexityLevel: (state) => state.complexity.level,
     accentConfig: (state) => colorAccentMap[state.colorAccent],
   },

@@ -164,11 +164,6 @@
                         See shipped work and learn more about how I build.
                     </p>
                     <div class="mt-8 flex flex-wrap justify-center gap-4">
-                        <NuxtLink to="/projects"
-                            class="inline-flex items-center gap-2 rounded-xl border-2 border-base-300/40 bg-base-100 px-6 py-3 font-semibold text-base-content transition-all hover:border-primary/50 hover:bg-primary/5">
-                            <Icon name="fluent:folder-24-regular" class="h-4 w-4" aria-hidden="true" />
-                            Projects
-                        </NuxtLink>
                         <NuxtLink to="/about"
                             class="inline-flex items-center gap-2 rounded-xl border-2 border-primary bg-primary px-6 py-3 font-semibold text-primary-content transition-all hover:shadow-lg hover:shadow-primary/30">
                             <Icon name="fluent:person-24-regular" class="h-4 w-4" aria-hidden="true" />

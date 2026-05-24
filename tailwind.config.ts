@@ -210,6 +210,15 @@ export default <Config>{
           'secondary-focus': '#7900bf',
         }
       },
+      {
+        night: {
+          ...require('daisyui/src/theming/themes')['night'],
+          primary: '#FFAC00',
+          'primary-focus': '#E69B00',
+          secondary: '#a100fc',
+          'secondary-focus': '#7900bf',
+        }
+      }, 
     ],
     base: true,
     styled: true,
